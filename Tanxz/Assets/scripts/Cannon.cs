@@ -9,11 +9,19 @@ using UnityEngine;
 ******************************************************************************/
 public class Cannon : MonoBehaviour
   {
-  /** Cannonball to launch. */ public GameObject cannonBall;
-	
+  /** Tank Data. */ protected TankData mTankData;
+  
+  /** Cannonball to launch. */ public GameObject shell;
+  
+  void Start()
+    {
+    mTankData = gameObject.GetComponentInParent<TankData>();
+    }
+
   public void fire(float force)
     {
-    GameObject cb = Instantiate(cannonBall, transform.position, Quaternion.identity);
-    cb.GetComponent<Rigidbody>().AddForce(force * transform.forward);
+    GameObject s = Instantiate(shell, transform.position, Quaternion.identity);
+    s.GetComponent<Shell>().damage = mTankData.shellDamage;
+    s.GetComponent<Rigidbody>().AddForce(force * transform.forward);
     }
   }

@@ -11,9 +11,9 @@ public class TankMotor : MonoBehaviour
   {
   /** Our tank's Character Controller. */ protected CharacterController mCharacterController;
   /** Tank's Cannon. */                   protected Cannon              mCannon;
+  /** Time until next shot. */            protected float               mShotTimer;
 
   /** GameObject's transform. */ public Transform tf;
-
 
   /**************************************************************************
   * Unity Methods 
@@ -24,12 +24,18 @@ public class TankMotor : MonoBehaviour
     mCannon              = gameObject.GetComponentInChildren<Cannon>();
     tf                   = gameObject.GetComponent<Transform>();
 	  }
-	
+
+  void Update()
+    {
+    /** Update the shot timer. */
+    mShotTimer += Time.deltaTime;
+    }
+
   /**************************************************************************
   * Methods 
   **************************************************************************/
   /**************************************************************************
-  * fire */ 
+  * fire */
   /**
   * Fires a cannonball.
   * 
@@ -38,7 +44,11 @@ public class TankMotor : MonoBehaviour
   public void fire(float force)
     {
     /** Fire a cannonball */
-    mCannon.fire(force);
+    if(mShotTimer >= gameObject.GetComponent<TankData>().firingDelay)
+      {
+      mShotTimer = 0f;
+      mCannon.fire(force);
+      }
     }
 
   /**************************************************************************

@@ -67,8 +67,9 @@ public class InputController : MonoBehaviour
           tankMotor.rotate(-tankData.turnSpeed);
 
         /** Fire. */
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKey(KeyCode.Space))
           tankMotor.fire(tankData.cannonForce);
+
         break;
         }
 
@@ -92,8 +93,9 @@ public class InputController : MonoBehaviour
           tankMotor.rotate(-tankData.turnSpeed);
 
         /** Fire. */
-        if(Input.GetKeyDown(KeyCode.RightControl))
+        if(Input.GetKey(KeyCode.RightControl))
           tankMotor.fire(tankData.cannonForce);
+
         break;
         }
       }
