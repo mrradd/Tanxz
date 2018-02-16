@@ -10,6 +10,7 @@ using UnityEngine;
 public class TankMotor : MonoBehaviour
   {
   /** Our tank's Character Controller. */ protected CharacterController mCharacterController;
+  /** Tank's Cannon. */                   protected Cannon              mCannon;
 
   /** GameObject's transform. */ public Transform tf;
 
@@ -20,12 +21,26 @@ public class TankMotor : MonoBehaviour
 	void Start ()
     {
 		mCharacterController = gameObject.GetComponent<CharacterController> ();
+    mCannon              = gameObject.GetComponentInChildren<Cannon>();
     tf                   = gameObject.GetComponent<Transform>();
 	  }
 	
   /**************************************************************************
   * Methods 
   **************************************************************************/
+  /**************************************************************************
+  * fire */ 
+  /**
+  * Fires a cannonball.
+  * 
+  * @param  force  Force to fire cannon at.
+  **************************************************************************/
+  public void fire(float force)
+    {
+    /** Fire a cannonball */
+    mCannon.fire(force);
+    }
+
   /**************************************************************************
   * move */ 
   /**

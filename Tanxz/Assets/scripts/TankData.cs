@@ -9,6 +9,7 @@ using UnityEngine;
 ******************************************************************************/
 public class TankData : MonoBehaviour
   {
-  /** Meters/second. */  public float moveSpeed = 3f;
-  /** Degrees/second. */ public float turnSpeed = 180f;
+  /** Cannon launch force. */ public float cannonForce = 200f;
+  /** Meters/second. */       public float moveSpeed   = 3f;
+  /** Degrees/second. */      public float turnSpeed   = 180f;
   }
