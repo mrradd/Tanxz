@@ -10,7 +10,7 @@ using UnityEngine;
 public class TestController : MonoBehaviour
   {
 
-  public TankMotor motor;
+  public Tank motor;
   public TankData  tankData;
 
 	void Start ()

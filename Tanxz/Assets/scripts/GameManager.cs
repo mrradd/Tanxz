@@ -9,8 +9,11 @@ using UnityEngine;
 ******************************************************************************/
 public class GameManager : MonoBehaviour
   {
-  public static GameManager instance;
+  /** Instance accessor. */ public static GameManager instance;
 
+  /****************************************************************************
+  * Unity Methods 
+  ****************************************************************************/
   void Awake()
     {
     if(instance == null)
