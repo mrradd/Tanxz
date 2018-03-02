@@ -21,7 +21,7 @@ public class AIController : BaseController
 	void Update()
     {
     /** Keep trying to fire a shell. Limited by rate of fire. */
-    tank.fire(tankData.cannonForce);
+    firingMechanism.fire(tankData.cannonForce);
 	  }
 
   /****************************************************************************

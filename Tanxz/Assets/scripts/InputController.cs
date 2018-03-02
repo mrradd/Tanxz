@@ -10,8 +10,11 @@ using UnityEngine;
 ******************************************************************************/
 public class InputController : BaseController
   {
-  /** Controller input types. */ public enum InputScheme {WASD, arrowKeys};
-  /** Selected Input type. */    public InputScheme input = InputScheme.WASD;
+  /** Controller input types. */
+  public enum InputScheme {WASD, arrowKeys};
+
+  /** Selected Input type. */   
+  public InputScheme input = InputScheme.WASD;
 
   /****************************************************************************
   * Unity Methods 
@@ -43,23 +46,23 @@ public class InputController : BaseController
         {
         /** Forward. */
         if(Input.GetKey(KeyCode.W))
-          tank.move(tankData.moveSpeed);
+          tankMotor.move(tankData.moveSpeed);
         
         /** Reverse. */
         else if(Input.GetKey(KeyCode.S))
-          tank.move(-tankData.moveSpeed);
+          tankMotor.move(-tankData.moveSpeed);
 
         /** Right. */
         if(Input.GetKey(KeyCode.D))
-          tank.rotate(tankData.turnSpeed);
+          tankMotor.rotate(tankData.turnSpeed);
         
         /** Left. */
         else if(Input.GetKey(KeyCode.A))
-          tank.rotate(-tankData.turnSpeed);
+          tankMotor.rotate(-tankData.turnSpeed);
 
         /** Fire. */
         if(Input.GetKey(KeyCode.Space))
-          tank.fire(tankData.cannonForce);
+          firingMechanism.fire(tankData.cannonForce);
 
         break;
         }
@@ -69,23 +72,23 @@ public class InputController : BaseController
         {
         /** Forward. */
         if(Input.GetKey(KeyCode.UpArrow))
-          tank.move(tankData.moveSpeed);
+          tankMotor.move(tankData.moveSpeed);
         
         /** Reverse. */
         else if(Input.GetKey(KeyCode.DownArrow))
-          tank.move(-tankData.moveSpeed);
+          tankMotor.move(-tankData.moveSpeed);
 
         /** Right. */
         if(Input.GetKey(KeyCode.RightArrow))
-          tank.rotate(tankData.turnSpeed);
+          tankMotor.rotate(tankData.turnSpeed);
         
         /** Left. */
         else if(Input.GetKey(KeyCode.LeftArrow))
-          tank.rotate(-tankData.turnSpeed);
+          tankMotor.rotate(-tankData.turnSpeed);
 
         /** Fire. */
         if(Input.GetKey(KeyCode.RightControl))
-          tank.fire(tankData.cannonForce);
+          firingMechanism.fire(tankData.cannonForce);
 
         break;
         }

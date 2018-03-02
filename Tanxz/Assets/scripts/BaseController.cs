@@ -7,23 +7,33 @@ using UnityEngine;
 /**
 * Base class for controlling the Tank.
 ******************************************************************************/
-[RequireComponent(typeof(TankData), typeof(Tank))]
+[RequireComponent(typeof(TankData), typeof(TankMotor), typeof(FiringMechanism))]
 public abstract class BaseController : MonoBehaviour
   {
-  /** Tank data. */    public TankData tankData;
-  /** Tank control. */ public Tank     tank;
+  /** Firing Mechanism. */
+  public FiringMechanism firingMechanism;
+
+  /** Tank control. */
+  public TankMotor tankMotor;
+
+  /** Tank data. */
+  public TankData tankData;
 
   /****************************************************************************
   * Unity Methods 
   ****************************************************************************/
   protected virtual void Start()
     {
-    /** Make sure we instantiate Tank Data if we don't have one. */
+    /** Instantiate TankData. */
     if(tankData == null)
       tankData = gameObject.GetComponent<TankData>();
 
-    /** Make sure we instantiate Tank Motor if we don't have one. */
-    if(tank == null)
-      tank = gameObject.GetComponent<Tank>();
+    /** Instantiate Tank. */
+    if(tankMotor == null)
+      tankMotor = gameObject.GetComponent<TankMotor>();
+
+    /** Instantiate FiringMechanism. */
+    if(firingMechanism == null)
+      firingMechanism = gameObject.GetComponent<FiringMechanism>();
     }
   }

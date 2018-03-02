@@ -9,7 +9,8 @@ using UnityEngine;
 ******************************************************************************/
 public class GameManager : MonoBehaviour
   {
-  /** Instance accessor. */ public static GameManager instance;
+  /** Instance accessor. */
+  public static GameManager instance;
 
   /****************************************************************************
   * Unity Methods 

@@ -3,27 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /******************************************************************************
-* Cannon */
+* FiringMechanism */
 /**
-* Controls firing shells.
+* Manages firing the Cannon.
 ******************************************************************************/
-public class Cannon : MonoBehaviour
-  {  
-  /** Shell to launch. */
-  public GameObject shell;
+[RequireComponent(typeof(TankData), typeof(Cannon))]
+public class FiringMechanism : MonoBehaviour
+  {
+  /** Time until next shot. */
+  protected float mShotTimer = 0f;
 
-  /** Owning Tank's Data. */
-  [System.NonSerialized]
+  /** Tank's Cannon. */
+  public Cannon cannon;
+
+  /** Tank's Data. */
   public TankData tankData;
 
   /****************************************************************************
   * Unity Methods 
   ****************************************************************************/
-  public virtual void Start()
+  void Start()
     {
+    /** Instantiate Cannon. */
+    if(cannon == null)
+      cannon = gameObject.GetComponentInChildren<Cannon>();
+
     /** Instantiate TankData. */
     if(tankData == null)
-      tankData = gameObject.GetComponentInParent<TankData>();
+      tankData = gameObject.GetComponent<TankData>();
+    
+    }
+
+  void Update()
+    {
+    /** Update the shot timer. */
+    mShotTimer += Time.deltaTime;
     }
 
   /****************************************************************************
@@ -32,20 +46,17 @@ public class Cannon : MonoBehaviour
   /****************************************************************************
   * fire */
   /**
-  * Fires a shell forward at a given force. Applies the passed in tag to the
-  * shell for firing source identification.
+  * Fires a tank shell from the current .
   * 
-  * @param  force      Force to fire shell at.
-  * @param  sourceTag  Tag from source to apply to the shell.
+  * @param  force  Force to fire cannon at.
   ****************************************************************************/
-  public virtual void fire(float force, string sourceTag)
+  public void fire(float force)
     {
-    GameObject s = Instantiate(shell, transform.position, Quaternion.identity);
-    Shell sh = s.GetComponent<Shell>();
-
-    sh.GetComponent<Shell>().damage = tankData.shellDamage;
-    sh.GetComponent<Shell>().source = sourceTag;
-
-    s.GetComponent<Rigidbody>().AddForce(force * transform.forward);
+    /** Fire a cannonball */
+    if(mShotTimer >= tankData.firingDelay)
+      {
+      mShotTimer = 0f;
+      cannon.fire(force, gameObject.name);
+      }
     }
   }

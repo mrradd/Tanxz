@@ -61,6 +61,8 @@ GameObject:
   - component: {fileID: 114621674951401370}
   - component: {fileID: 114904771009128638}
   - component: {fileID: 114883577242366098}
+  - component: {fileID: 114880361821012036}
+  - component: {fileID: 114066920029247162}
   m_Layer: 0
   m_Name: PlayerTank
   m_TagString: PlayerTank
@@ -126,7 +128,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1335757497979822}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 376.14, y: 100.42, z: 143.62}
+  m_LocalPosition: {x: 376.14, y: 100.42, z: 143.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4819593936819646}
@@ -259,7 +261,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ce480fe58b98ea145a12bf4b69eedc53, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -293,7 +295,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: dd6d9bac0c71195479af54e1db0d691e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -383,6 +385,17 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1168922244421358}
   m_Enabled: 1
+--- !u!114 &114066920029247162
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1335757497979822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d12e9709cf7054cc8b0afece173a83a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114323051572913152
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -437,6 +450,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0060dfebf92a4b5f9674185bb36846c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114880361821012036
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1335757497979822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdc03ab5dd1534c58bf57b55b3f7f0e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114883577242366098
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -460,8 +484,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09ea24a3bb9bd30408ea05ae12275285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tankData: {fileID: 114621674951401370}
+  firingMechanism: {fileID: 114880361821012036}
   tank: {fileID: 114883577242366098}
+  tankData: {fileID: 114621674951401370}
   input: 0
 --- !u!124 &124226941700544228
 Behaviour:
