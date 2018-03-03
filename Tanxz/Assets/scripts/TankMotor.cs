@@ -41,7 +41,7 @@ public class TankMotor : MonoBehaviour
   * Methods 
   ****************************************************************************/
   /****************************************************************************
-  * move */ 
+  * move */
   /**
   * Moves the tank forward and backward.
   * 
@@ -65,6 +65,32 @@ public class TankMotor : MonoBehaviour
     {
     /** Rotate the gameobject about the local Y axis at the passed in speed. */
     tf.Rotate(Vector3.up * rotationSpeed * Time.deltaTime, Space.Self);
+    }
+
+  /****************************************************************************
+  * rotateTowards */
+  /**
+  * Rotates the tank towards a certain point.
+  * 
+  * @param  target         Position to point to.
+  * @param  rotationSpeed  Negative is left, positive is right.
+  * @returns  True: finished rotating. False: not finished rotating.
+  ****************************************************************************/
+  public bool rotateTowards(Vector3 target, float rotationSpeed)
+    {
+    Vector3 targetVector = target - tf.position;
+
+    /** Calculate rotation target. */
+    Quaternion targetRotation = Quaternion.LookRotation(targetVector);
+
+    /** Check if rotated to target. */
+    if(targetRotation == tf.rotation)
+      return true;
+
+    /** Rotate to target over time. */
+    tf.rotation = Quaternion.RotateTowards(tf.rotation, targetRotation, tankData.turnSpeed * Time.deltaTime);
+
+    return false;
     }
   }
 
