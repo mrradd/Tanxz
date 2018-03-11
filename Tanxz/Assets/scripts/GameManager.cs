@@ -12,6 +12,12 @@ public class GameManager : MonoBehaviour
   /** Instance accessor. */
   public static GameManager instance;
 
+  /** AI tanks. */
+  public List<GameObject> aiTanks = new List<GameObject>();
+
+  /** Players tanks. */
+  public List<GameObject> playerTanks = new List<GameObject>();
+
   /****************************************************************************
   * Unity Methods 
   ****************************************************************************/
