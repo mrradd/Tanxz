@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /******************************************************************************
-* AIController */
+* AIPersonality */
 /**
-* Manages controlling AI tanks.
+* Manages controlling AI tanks and AI behavior.
 ******************************************************************************/
-public class AIController : BaseController
+public class AIPersonality : BaseController
   {
   /****************************************************************************
   * Enums
@@ -15,8 +15,8 @@ public class AIController : BaseController
   /** Loop type. */
   public enum LoopType { Stop, Loop, PingPong};
 
-  /** Different AI modes. */
-  public enum Mode { Chase, Flee, Patrol };
+  /** Different AI states. */
+  public enum AIState { Chase, ChaseAndFire, CheckForFlee, Flee, Patrol, Rest };
 
   /****************************************************************************
   * Properties
@@ -36,6 +36,12 @@ public class AIController : BaseController
   /** Follow the waypoints forward. */
   protected bool mPatrolForward = true;
 
+  /** Time state enterred. */
+  protected float mTimeStateEnterred;
+
+  /** Current AI mode. */
+  public AIState aiState = AIState.Patrol;
+
   /** Time period move forward to avoid object. */
   public float avoidanceTime = 2.0f;
 
@@ -48,8 +54,8 @@ public class AIController : BaseController
   /** Loop type. */
   public LoopType loopType;
 
-  /** Current AI mode. */
-  public Mode mode;
+  /** Sensor range. */
+  public float senseRadius;
 
   /** Target to chase. */
   public Transform target;
@@ -60,12 +66,16 @@ public class AIController : BaseController
   /****************************************************************************
   * Unity Methods 
   ****************************************************************************/
-	protected override void Start()
+  protected virtual void Awake()
+    {
+    }
+
+  protected override void Start()
     {
     base.Start();
 	  }
 	
-  protected void Update()
+  protected virtual void Update()
     {
     /** Avoid obstacles. */
     if(mAvoidanceStage != 0)
@@ -75,30 +85,7 @@ public class AIController : BaseController
       /** Move according to mode if we can. */
       if(canMove())
         {
-        /** Check movement mode. */
-        switch(mode)
-          {
-          /** Move along the waypoints list. */
-          case Mode.Patrol:
-            {
-            patrol();
-            break;
-            }
-
-          /** Chase the target. */
-          case Mode.Chase:
-            {
-            chase();
-            break;
-            }
-
-          /** Move away from target. */
-          case Mode.Flee:
-            {
-            flee();
-            break;
-            }
-          }
+        checkState();
         }
 
       /** Change avoidance stage. */
@@ -113,52 +100,15 @@ public class AIController : BaseController
   * Methods 
   ****************************************************************************/
   /****************************************************************************
-  * canMove */
+  * targetSighted */
   /**
-  * Returns if the tank can move forward tank movement speed units ahead.
+  * Spotted a target.
   * 
-  * @returns True: can move forward. False: can't move forward.
+  * @param  obj  Game Object sighted.
   ****************************************************************************/
-  protected bool canMove()
+  public virtual void targetSighted(GameObject obj)
     {
-    RaycastHit hit;
-
-    /** Check if something is in front of the tank. */
-    if(Physics.Raycast(tankMotor.tf.position, tankMotor.tf.forward, out hit, tankData.moveSpeed))
-      {
-      /** Avoid everything but the player. */
-      if(!hit.collider.CompareTag("PlayerTank"))
-        {
-        return false;
-        }
-      }
-
-    return true;
-    }
-
-  /****************************************************************************
-  * chase */
-  /**
-  * Moves tank in such a way that it appears to be chasing the target.
-  ****************************************************************************/
-  protected void chase()
-    {
-    if(target != null)
-      {
-      /** Square the difference of magnitudes, and check if it is within our
-        * threshold squared. Doing this instead of using Vector3.Distance for
-        * better performance. */
-      float d  = Vector3.SqrMagnitude(tankMotor.tf.position - target.position);
-      float dt = Mathf.Pow(distanceThreshold, 2f);
-
-      tankMotor.rotateTowards(target.position, tankData.turnSpeed);
-
-      /** Move forward if far enough away. */
-      if(d >= dt)
-        {
-        tankMotor.move(tankData.moveSpeed);        
-        }
-      }
+    
     }
 
   /****************************************************************************
@@ -166,11 +116,12 @@ public class AIController : BaseController
   /**
   * Attempts to avoid an obstacle if one is encountered.
   ****************************************************************************/
-  protected void avoid()
+  protected virtual void avoid()
     {
     /** Rotate the tank, and advance avoidance stage. */
     if(mAvoidanceStage == 1)
       {
+      //TODO CH  TURN UNTIL PERPENDICULAR TO OBJECT
       /** Turn left. */
       tankMotor.rotate(-1 * tankData.turnSpeed);
 
@@ -216,32 +167,139 @@ public class AIController : BaseController
     }
 
   /****************************************************************************
+  * canMove */
+  /**
+  * Returns if the tank can move forward tank movement speed units ahead.
+  * 
+  * @returns True: can move forward. False: can't move forward.
+  ****************************************************************************/
+  protected bool canMove()
+    {
+    RaycastHit hit;
+
+    /** Check if something is in front of the tank. */
+    if(Physics.Raycast(tankMotor.tf.position, tankMotor.tf.forward, out hit, tankData.moveSpeed))
+      {
+      /** Avoid everything but the player. */
+      if(!hit.collider.CompareTag("PlayerTank"))
+        {
+        return false;
+        }
+      }
+
+    return true;
+    }
+
+  /****************************************************************************
+  * chase */
+  /**
+  * Moves tank in such a way that it appears to be chasing the target.
+  ****************************************************************************/
+  protected virtual void chase()
+    {
+    if(target != null)
+      {
+      /** Square the difference of magnitudes, and check if it is within our
+        * threshold squared. Doing this instead of using Vector3.Distance for
+        * better performance. */
+      float d = Vector3.SqrMagnitude(tankMotor.tf.position - target.position);
+      float dt = Mathf.Pow(distanceThreshold, 2f);
+
+      tankMotor.rotateTowards(target.position, tankData.turnSpeed);
+
+      /** Move forward if far enough away. */
+      if(d >= dt)
+        {
+        tankMotor.move(tankData.moveSpeed);
+        }
+      }
+    else
+      aiState = AIState.Patrol;  
+    }
+
+  /****************************************************************************
+  * chaseAndFire */
+  /**
+  * Intentionally blank.
+  ****************************************************************************/
+  protected virtual void chaseAndFire() { }
+
+  /****************************************************************************
+  * checkForFlee */
+  /**
+  * Intentionally blank.
+  ****************************************************************************/
+  protected virtual void checkForFlee() { }
+
+  /****************************************************************************
+  * checkState */
+  /**
+  * Checks the state of the AI, and performs actions based on the current
+  * state.
+  ****************************************************************************/
+  protected virtual void checkState()
+    {
+    /** Check movement mode. */
+    switch(aiState)
+      {
+      /** Move along the waypoints list. */
+      case AIState.Patrol:
+        {
+        patrol();
+        break;
+        }
+
+      /** Chase the target. */
+      case AIState.Chase:
+        {
+        chase();
+        break;
+        }
+
+      /** Move away from target. */
+      case AIState.Flee:
+        {
+        flee();
+        break;
+        }
+      }
+    }
+
+  /****************************************************************************
   * flee */
   /**
   * Moves tank away from target for a number of seconds defined by fleeTime.
+  * 
+  * @retrurns True: Fleeing. False: Not fleeing.
   ****************************************************************************/
-  protected void flee()
+  protected virtual bool flee()
     {
-    mFleeTimer += Time.deltaTime;
-
-    /** Flee for a period of time. */
-    if(mFleeTimer <= fleeTime)
+    if(target != null)
       {
-      /** Get vector opposite of our target. */
-      Vector3 fleeVec = Vector3.Normalize(target.position - tankMotor.tf.position) * -1;
+      mFleeTimer += Time.deltaTime;
 
-      /** Set position to flee to. */
-      Vector3 fleePosition = fleeVec + tankMotor.tf.position;
-      tankMotor.rotateTowards(fleePosition, tankData.turnSpeed);
-      tankMotor.move(tankData.moveSpeed);      
+      /** Flee for a period of time. */
+      if(mFleeTimer <= fleeTime)
+        {
+        /** Get vector opposite of our target. */
+        Vector3 fleeVec = Vector3.Normalize(target.position - tankMotor.tf.position) * -1;
+
+        /** Set position to flee to. */
+        Vector3 fleePosition = fleeVec + tankMotor.tf.position;
+        tankMotor.rotateTowards(fleePosition, tankData.turnSpeed);
+        tankMotor.move(tankData.moveSpeed);
+        return true;
+        }
+
+      /** Once finished fleeing, start patroling, and reset timer. */
+      else
+        {
+        mFleeTimer = 0f;
+        return false;
+        }      
       }
 
-    /** Once finished fleeing, start patroling, and reset timer. */
-    else
-      {
-      mFleeTimer = 0f;
-      mode = Mode.Patrol;
-      }
+    return false;
     }
 
   /****************************************************************************
@@ -249,7 +307,7 @@ public class AIController : BaseController
   /**
   * Sets a waypoint for the tank to move to, and makes it move there.
   ****************************************************************************/
-  protected void patrol()
+  protected virtual void patrol()
     {
     Transform currentWaypoint = waypoints[mCurrentWaypointIndex];
 
@@ -307,4 +365,11 @@ public class AIController : BaseController
         }
       }
     }
+
+  /****************************************************************************
+  * rest */
+  /**
+  * Intentionally blank.
+  ****************************************************************************/
+  protected virtual void rest() { }
   }

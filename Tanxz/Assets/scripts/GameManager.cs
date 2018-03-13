@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
   /** Players tanks. */
   public List<GameObject> playerTanks = new List<GameObject>();
 
+  /** Powerups */
+  public List<GameObject> powerups = new List<GameObject>();
+
   /****************************************************************************
   * Unity Methods 
   ****************************************************************************/
@@ -27,7 +30,7 @@ public class GameManager : MonoBehaviour
       instance = this;
     else
       {
-      Debug.LogError("There can only be on instance of GameManager.");
+      Debug.LogError("There can only be one instance of GameManager.");
       Destroy(gameObject);
       }
     }

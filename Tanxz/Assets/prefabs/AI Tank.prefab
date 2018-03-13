@@ -24,10 +24,10 @@ GameObject:
   - component: {fileID: 114438877033645046}
   - component: {fileID: 114003964545677970}
   - component: {fileID: 114906577374109802}
-  - component: {fileID: 114866287892547282}
+  - component: {fileID: 114021865457585732}
   m_Layer: 0
   m_Name: AI Tank
-  m_TagString: PlayerTank
+  m_TagString: AITank
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -140,13 +140,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1313884710490948}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.1, y: 31.3, z: 1.8}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.1, y: 1.73, z: -2.74}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4818496442851858}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4382875842578184
 Transform:
   m_ObjectHideFlags: 1
@@ -166,8 +166,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1101908796825038}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.9, z: 32.5}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 14.65, y: 0.6, z: 33.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4211834155577554}
@@ -176,7 +176,7 @@ Transform:
   - {fileID: 4191764745841752}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!20 &20965082167999770
 Camera:
   m_ObjectHideFlags: 1
@@ -384,7 +384,7 @@ AudioListener:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1313884710490948}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!114 &114003964545677970
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -398,6 +398,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cannon: {fileID: 114222636593907568}
   tankData: {fileID: 114639508668932346}
+--- !u!114 &114021865457585732
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1101908796825038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a359fc4127504540af3fd1a77703c65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firingMechanism: {fileID: 114003964545677970}
+  tankMotor: {fileID: 114438877033645046}
+  tankData: {fileID: 114639508668932346}
+  aiState: 0
+  avoidanceTime: 2
+  distanceThreshold: 1
+  fleeTime: 1
+  loopType: 0
+  senseRadius: 0
+  target: {fileID: 0}
+  waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &114222636593907568
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -466,23 +491,6 @@ MonoBehaviour:
   tankName: Player Tank
   turnSpeed: 180
   pointValue: 100
---- !u!114 &114866287892547282
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1101908796825038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ec368abea9024fd3bb17ee2d9f3c95b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firingMechanism: {fileID: 114003964545677970}
-  tankMotor: {fileID: 114438877033645046}
-  tankData: {fileID: 114639508668932346}
-  waypoints:
-  - {fileID: 0}
-  distanceThreshold: 1
 --- !u!114 &114906577374109802
 MonoBehaviour:
   m_ObjectHideFlags: 1

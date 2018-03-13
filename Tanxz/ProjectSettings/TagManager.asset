@@ -7,6 +7,8 @@ TagManager:
   - Shell
   - PlayerTank
   - PlayerShell
+  - AITank
+  - Powerup
   layers:
   - Default
   - TransparentFX
