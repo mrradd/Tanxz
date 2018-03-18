@@ -17,6 +17,10 @@ public class DamageManager : MonoBehaviour
   /****************************************************************************
   * Unity Methods 
   ****************************************************************************/
+  /**************************************************************************
+  * Start */
+  /**
+  **************************************************************************/
   void Start()
     {
     /** Instantiate TankData. */
@@ -48,7 +52,7 @@ public class DamageManager : MonoBehaviour
       /** Increase the score of the object that hit this tank. */
       GameObject.Find(adp.source).GetComponent<TankData>().score += tankData.pointValue;
 
-      Destroy(gameObject);
+      //Destroy(gameObject);
       }
     }
   }

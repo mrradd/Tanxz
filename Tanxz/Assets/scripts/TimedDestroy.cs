@@ -11,6 +11,10 @@ public class TimedDestroy : MonoBehaviour
   {
   public float delay;
 	
+  /**************************************************************************
+  * Start */
+  /**
+  **************************************************************************/
 	void Start ()
     {
 		Destroy(gameObject, delay);

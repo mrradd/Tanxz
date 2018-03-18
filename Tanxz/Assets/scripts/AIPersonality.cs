@@ -5,7 +5,7 @@ using UnityEngine;
 /******************************************************************************
 * AIPersonality */
 /**
-* Manages controlling AI tanks and AI behavior.
+* Base personality for controlling AI tanks and AI behavior. Base only patrols.
 ******************************************************************************/
 public class AIPersonality : BaseController
   {
@@ -33,17 +33,32 @@ public class AIPersonality : BaseController
   /** Flee time tracker. */
   protected float mFleeTimer = 0f;
 
+  /** Layer mask. */
+  protected int mLayerMask;
+
   /** Follow the waypoints forward. */
   protected bool mPatrolForward = true;
 
+  /** Temporary placeholder for Pickup target. */
+  protected Transform mTargetPickup;
+
+  /** Temporary placeholder for Tank target. */
+  protected Transform mTargetTank;
+
   /** Time state enterred. */
   protected float mTimeStateEnterred;
+
+  /** AI Sight component. */
+  public AISight aiSight;
 
   /** Current AI mode. */
   public AIState aiState = AIState.Patrol;
 
   /** Time period move forward to avoid object. */
   public float avoidanceTime = 2.0f;
+
+  /** Material color. */
+  public Color personalityColor;
 
   /** Threshhold for being close enough to waypoint. */
   public float distanceThreshold = 1f;
@@ -66,17 +81,46 @@ public class AIPersonality : BaseController
   /****************************************************************************
   * Unity Methods 
   ****************************************************************************/
+  /**************************************************************************
+  * Awake */
+  /**
+  **************************************************************************/
   protected virtual void Awake()
     {
+    /** Make sure the tank can see. */
+    if(aiSight == null)
+      aiSight = gameObject.GetComponent<AISight>();
+
+    /** Set Layer Mask. */
+    mLayerMask = 1 << LayerMask.NameToLayer("Interractive");
     }
 
+  /**************************************************************************
+  * Start */
+  /**
+  **************************************************************************/
   protected override void Start()
     {
     base.Start();
+
+    changeColor(personalityColor);
+
+    /** Add itself to the list of AI tanks. */
+    GameManager.instance.aiTanks.Add(gameObject);
 	  }
 	
+  /**************************************************************************
+  * Update */
+  /**
+  **************************************************************************/
   protected virtual void Update()
     {
+    /** If dead, do nothing. */
+    if(!tankData.isAlive)
+      return;
+    
+    scanForTarget();
+
     /** Avoid obstacles. */
     if(mAvoidanceStage != 0)
       avoid();
@@ -100,18 +144,6 @@ public class AIPersonality : BaseController
   * Methods 
   ****************************************************************************/
   /****************************************************************************
-  * targetSighted */
-  /**
-  * Spotted a target.
-  * 
-  * @param  obj  Game Object sighted.
-  ****************************************************************************/
-  public virtual void targetSighted(GameObject obj)
-    {
-    
-    }
-
-  /****************************************************************************
   * avoid */
   /**
   * Attempts to avoid an obstacle if one is encountered.
@@ -126,6 +158,7 @@ public class AIPersonality : BaseController
       tankMotor.rotate(-1 * tankData.turnSpeed);
 
       /** Change avoidance stage, and reset timer. */
+      //if(canMove() && isPerpendicular())
       if(canMove())
         {
         mAvoidanceTimer = 0;
@@ -178,7 +211,7 @@ public class AIPersonality : BaseController
     RaycastHit hit;
 
     /** Check if something is in front of the tank. */
-    if(Physics.Raycast(tankMotor.tf.position, tankMotor.tf.forward, out hit, tankData.moveSpeed))
+    if(Physics.Raycast(tankMotor.tf.position, tankMotor.tf.forward, out hit, tankData.moveSpeed, mLayerMask))
       {
       /** Avoid everything but the player. */
       if(!hit.collider.CompareTag("PlayerTank"))
@@ -188,6 +221,28 @@ public class AIPersonality : BaseController
       }
 
     return true;
+    }
+
+  /****************************************************************************
+  * changeColor */
+  /**
+  * Changes the tanks color.
+  * 
+  * @param  color  Color to change tank to.
+  ****************************************************************************/
+  protected virtual void changeColor(Color color)
+    {
+    /** Get materials for all child components so we can change their color. */
+    Renderer[] arr = gameObject.GetComponentsInChildren<Renderer>();
+
+    /** Change all the components color. */
+    for(int i = 0; i < arr.Length; i++)
+      {
+      if(arr[i] == null)
+        continue;
+
+      arr[i].material.color = color;
+      }
     }
 
   /****************************************************************************
@@ -202,7 +257,7 @@ public class AIPersonality : BaseController
       /** Square the difference of magnitudes, and check if it is within our
         * threshold squared. Doing this instead of using Vector3.Distance for
         * better performance. */
-      float d = Vector3.SqrMagnitude(tankMotor.tf.position - target.position);
+      float d  = Vector3.SqrMagnitude(tankMotor.tf.position - target.position);
       float dt = Mathf.Pow(distanceThreshold, 2f);
 
       tankMotor.rotateTowards(target.position, tankData.turnSpeed);
@@ -248,21 +303,17 @@ public class AIPersonality : BaseController
         patrol();
         break;
         }
-
-      /** Chase the target. */
-      case AIState.Chase:
-        {
-        chase();
-        break;
-        }
-
-      /** Move away from target. */
-      case AIState.Flee:
-        {
-        flee();
-        break;
-        }
       }
+    }
+
+  /****************************************************************************
+  * fire */
+  /**
+  * Fires forward.
+  ****************************************************************************/
+  protected virtual void fire()
+    {
+    firingMechanism.fire(tankData.cannonForce);
     }
 
   /****************************************************************************
@@ -274,7 +325,7 @@ public class AIPersonality : BaseController
   ****************************************************************************/
   protected virtual bool flee()
     {
-    if(target != null)
+    if(hasActiveTarget())
       {
       mFleeTimer += Time.deltaTime;
 
@@ -291,10 +342,13 @@ public class AIPersonality : BaseController
         return true;
         }
 
-      /** Once finished fleeing, start patroling, and reset timer. */
+      /** Once finished fleeing, remove target, start patroling, and reset timer. */
       else
         {
+        target     = null;
+        aiState    = AIState.Patrol;
         mFleeTimer = 0f;
+
         return false;
         }      
       }
@@ -303,12 +357,61 @@ public class AIPersonality : BaseController
     }
 
   /****************************************************************************
+  * hasActiveTarget */
+  /**
+  * Verifies if has target that is alive.
+  * 
+  * @returns  True: alive target. False: no alive target.
+  ****************************************************************************/
+  protected virtual bool hasActiveTarget()
+    {
+    return target != null && target.gameObject.GetComponent<BaseData>().isAlive;
+    }
+
+
+  ///****************************************************************************
+  //* isPerpendicular */
+  ///**
+  //* Checks if tank is perpendicular to obstacle.
+  //* 
+  //* @returns  True: is perpendicular. False: not perpendicular.
+  //****************************************************************************/
+  //protected virtual bool isPerpendicular()
+    //{
+    ////TODO CH  CAN'T GET THIS TO WORK.....
+    //RaycastHit hitInfo;
+
+    //if(Physics.Raycast(tankMotor.tf.position, tankMotor.tf.right, out hitInfo, 10, mLayerMask))
+    //  {
+    //  Vector3 p1 = Vector3.Normalize(hitInfo.point);
+    //  Vector3 p2 = Vector3.Normalize(tankMotor.tf.right);
+    //  float dp = Vector3.Dot(p1, p2);
+
+    //  Debug.DrawRay(tankMotor.tf.position, tankMotor.tf.right, Color.red, 1f);
+
+    //  if(dp <= .1 || dp >= -.1)
+    //    {
+    //    return true; 
+    //    }
+    //  else
+    //    {
+    //    return false;
+    //    }
+    //  }
+
+    //return false;
+    //}
+
+  /****************************************************************************
   * patrol */
   /**
   * Sets a waypoint for the tank to move to, and makes it move there.
   ****************************************************************************/
   protected virtual void patrol()
     {
+    if(waypoints.Length <= 0)
+      return;
+    
     Transform currentWaypoint = waypoints[mCurrentWaypointIndex];
 
     /** Square the difference of magnitudes, and check if it is within our
@@ -372,4 +475,14 @@ public class AIPersonality : BaseController
   * Intentionally blank.
   ****************************************************************************/
   protected virtual void rest() { }
+
+  /****************************************************************************
+  * scanForTarget */
+  /**
+  * Scans the area for a target. Default only searches for Player.
+  ****************************************************************************/
+  protected virtual void scanForTarget()
+    {
+    target = aiSight.scanForType(AISight.TargetType.PlayerTank);
+    }
   }

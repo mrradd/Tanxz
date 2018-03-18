@@ -22,6 +22,10 @@ public class FiringMechanism : MonoBehaviour
   /****************************************************************************
   * Unity Methods 
   ****************************************************************************/
+  /**************************************************************************
+  * Start */
+  /**
+  **************************************************************************/
   void Start()
     {
     /** Instantiate Cannon. */
@@ -30,10 +34,13 @@ public class FiringMechanism : MonoBehaviour
 
     /** Instantiate TankData. */
     if(tankData == null)
-      tankData = gameObject.GetComponent<TankData>();
-    
+      tankData = gameObject.GetComponent<TankData>();  
     }
 
+  /**************************************************************************
+  * Update */
+  /**
+  **************************************************************************/
   void Update()
     {
     /** Update the shot timer. */

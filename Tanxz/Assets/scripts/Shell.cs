@@ -17,6 +17,10 @@ public class Shell : MonoBehaviour
   [System.NonSerialized]
   public string source = "";
 
+  /**************************************************************************
+  * Start */
+  /**
+  **************************************************************************/
   void Start()
     {
     Debug.Log(damage + " " + source);

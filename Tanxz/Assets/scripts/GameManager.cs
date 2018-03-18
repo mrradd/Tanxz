@@ -15,15 +15,19 @@ public class GameManager : MonoBehaviour
   /** AI tanks. */
   public List<GameObject> aiTanks = new List<GameObject>();
 
+  /** Pickups. */
+  public List<GameObject> pickups = new List<GameObject>();
+
   /** Players tanks. */
   public List<GameObject> playerTanks = new List<GameObject>();
-
-  /** Powerups */
-  public List<GameObject> powerups = new List<GameObject>();
 
   /****************************************************************************
   * Unity Methods 
   ****************************************************************************/
+  /**************************************************************************
+  * Awake */
+  /**
+  **************************************************************************/
   void Awake()
     {
     if(instance == null)
