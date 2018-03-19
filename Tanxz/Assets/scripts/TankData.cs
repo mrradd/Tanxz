@@ -12,6 +12,9 @@ public class TankData : BaseData
   /** Cannon launch force. */
   public float cannonForce = 5000f;
 
+  /** Lowest amount of starting health. */
+  public int baseHP = 100;
+
   /** Field of view angle. */
   public float fieldOfView = 45f;
 
@@ -19,7 +22,11 @@ public class TankData : BaseData
   public float firingDelay = .5f;
 
   /** Hit points. */
+  [System.NonSerialized]
   public int hp = 100;
+
+  /** Listening radius. */
+  public float listeningRadius = 50f;
 
   /** Meters/second. */
   public float moveSpeed = 4f;
@@ -41,6 +48,15 @@ public class TankData : BaseData
 
   /** Degrees/second. */
   public float turnSpeed = 180f;
+
+  /**************************************************************************
+  * Awake */
+  /**
+  **************************************************************************/
+  private void Awake()
+    {
+    hp = baseHP;
+    }
 
   /**************************************************************************
   * Update */
@@ -66,5 +82,4 @@ public class TankData : BaseData
         }
       }
     }
-   
   }

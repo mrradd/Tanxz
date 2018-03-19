@@ -6,4 +6,7 @@ public class BaseData : MonoBehaviour
   {
   /** Alive flag. */
   public bool isAlive = true;
+
+  /** Making noise. */
+  public bool makingNoise = false;
   }

@@ -82,13 +82,14 @@ GameObject:
   - component: {fileID: 114260167771535606}
   - component: {fileID: 114581162398112364}
   - component: {fileID: 114714093520841306}
+  - component: {fileID: 114951434094443112}
   m_Layer: 8
   m_Name: AfraidAI
   m_TagString: AITank
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1971609115962552
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,7 +156,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1875983709590206}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -20.6, y: 0.6, z: 19.4}
+  m_LocalPosition: {x: -20.6, y: 0.6, z: 27.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4381174290237404}
@@ -458,13 +459,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAlive: 1
+  makingNoise: 0
   cannonForce: 80
+  baseHP: 100
   fieldOfView: 45
   firingDelay: 0.5
-  hp: 100
   moveSpeed: 4
   pointValue: 100
-  viewDistance: 100
+  viewDistance: 10
   score: 0
   shellDamage: 34
   tankName: Afraid Tank
@@ -488,11 +490,13 @@ MonoBehaviour:
   avoidanceTime: 2
   personalityColor: {r: 1, g: 0.9264706, b: 0, a: 0}
   distanceThreshold: 1
-  fleeTime: 1
+  fleeTime: 3
   loopType: 0
   senseRadius: 0
   target: {fileID: 0}
-  waypoints: []
+  waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &114714093520841306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -506,6 +510,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tankData: {fileID: 114562767475505550}
   tf: {fileID: 4920040445116296}
+--- !u!114 &114951434094443112
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1875983709590206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb42225ccb894450d9da7b6352191b40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tankData: {fileID: 114562767475505550}
 --- !u!114 &114961074716036282
 MonoBehaviour:
   m_ObjectHideFlags: 1

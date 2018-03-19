@@ -22,7 +22,8 @@ public class AIPersonality : BaseController
   * Properties
   ****************************************************************************/
   /** Current state of avoidance algorithm. */
-  protected int mAvoidanceStage = 0;
+  //protected int mAvoidanceStage = 0;
+  public int mAvoidanceStage = 0;
 
   /** Timer before avoidance ends. */
   protected float mAvoidanceTimer = 0f;
@@ -69,9 +70,6 @@ public class AIPersonality : BaseController
   /** Loop type. */
   public LoopType loopType;
 
-  /** Sensor range. */
-  public float senseRadius;
-
   /** Target to chase. */
   public Transform target;
 
@@ -81,10 +79,10 @@ public class AIPersonality : BaseController
   /****************************************************************************
   * Unity Methods 
   ****************************************************************************/
-  /**************************************************************************
+  /****************************************************************************
   * Awake */
   /**
-  **************************************************************************/
+  ****************************************************************************/
   protected virtual void Awake()
     {
     /** Make sure the tank can see. */
@@ -208,16 +206,25 @@ public class AIPersonality : BaseController
   ****************************************************************************/
   protected bool canMove()
     {
+    //TODO CH  FOR SOME REASON TRIES TO AVOID THE FIRST WAYPOINT A COUPLE TIMES,
+    //BUT THEN DOES NOT TRY TO AVOID WAYPOINTS.
+
     RaycastHit hit;
 
     /** Check if something is in front of the tank. */
     if(Physics.Raycast(tankMotor.tf.position, tankMotor.tf.forward, out hit, tankData.moveSpeed, mLayerMask))
       {
-      /** Avoid everything but the player. */
-      if(!hit.collider.CompareTag("PlayerTank"))
+      bool p = hit.collider.gameObject.tag != "PlayerTank";
+      bool w = hit.collider.gameObject.tag != "WayPoint";
+
+      /** Avoid everything but the player and WayPoints. */
+      if(p && w)
         {
+        Debug.Log(hit.collider.gameObject.tag);
         return false;
         }
+
+      return false;
       }
 
     return true;
@@ -278,13 +285,6 @@ public class AIPersonality : BaseController
   * Intentionally blank.
   ****************************************************************************/
   protected virtual void chaseAndFire() { }
-
-  /****************************************************************************
-  * checkForFlee */
-  /**
-  * Intentionally blank.
-  ****************************************************************************/
-  protected virtual void checkForFlee() { }
 
   /****************************************************************************
   * checkState */
@@ -368,6 +368,19 @@ public class AIPersonality : BaseController
     return target != null && target.gameObject.GetComponent<BaseData>().isAlive;
     }
 
+  /****************************************************************************
+  * heardTarget */
+  /**
+  * AI Listener calls this when a target is found.
+  * 
+  * @param  tf  Transform of new target.
+  ****************************************************************************/
+  public virtual void heardTarget(Transform tf)
+    {
+    //target  = tf;
+    //aiState = AIState.Chase;
+    Debug.Log("Heard target.");
+    }
 
   ///****************************************************************************
   //* isPerpendicular */

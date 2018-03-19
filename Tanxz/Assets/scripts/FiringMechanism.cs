@@ -59,7 +59,9 @@ public class FiringMechanism : MonoBehaviour
   ****************************************************************************/
   public void fire(float force)
     {
-    /** Fire a cannonball */
+    gameObject.SendMessage("madeNoise");
+
+    /** Fire a shell */
     if(mShotTimer >= tankData.firingDelay)
       {
       mShotTimer = 0f;

@@ -11,8 +11,6 @@ public class AISight : MonoBehaviour
   {
   public enum TargetType { PlayerTank, AITank, Pickup };
 
-  protected int mLayerMask;
-
   /** List of AI tanks. */
   protected List<GameObject> mAITanks = new List<GameObject>();
 
@@ -43,8 +41,6 @@ public class AISight : MonoBehaviour
 
     if(tf == null)
       tf = gameObject.GetComponent<Transform>();
-
-    mLayerMask = 1 << LayerMask.NameToLayer("Interractive");
     }
 
   /**************************************************************************
@@ -84,7 +80,8 @@ public class AISight : MonoBehaviour
 
       /** Cast ray from the tank for the view distance to see if we hit the
        * target. Filtering for only objects in the Interractive layer.  */
-      if(Physics.Raycast(rayToTarget, out hitInfo, tankData.viewDistance, mLayerMask))
+      int layerMask = 1 << LayerMask.NameToLayer("Interractive");
+      if(Physics.Raycast(rayToTarget, out hitInfo, tankData.viewDistance, layerMask))
         {
         if(hitInfo.collider.gameObject == target)
           {
@@ -120,7 +117,7 @@ public class AISight : MonoBehaviour
       {
       target = canSee(targets[i]);
 
-      if(target != null && target.gameObject.GetComponent<BaseData>().isAlive)
+      if(target != null)
         return target.transform;
       }
 

@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 114906577374109802}
   - component: {fileID: 114021865457585732}
   - component: {fileID: 114998093927627010}
+  - component: {fileID: 114391306453395592}
   m_Layer: 8
   m_Name: AI Tank
   m_TagString: AITank
@@ -168,7 +169,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1101908796825038}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -3.57, y: 0.6, z: 11.3}
+  m_LocalPosition: {x: -3.57, y: 0.6, z: 27.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4211834155577554}
@@ -449,6 +450,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0060dfebf92a4b5f9674185bb36846c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114391306453395592
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1101908796825038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb42225ccb894450d9da7b6352191b40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tankData: {fileID: 114639508668932346}
 --- !u!114 &114391934924019544
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -485,11 +498,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a97bfb2b50b673f4fb13fecac55147a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
+  makingNoise: 0
   cannonForce: 80
-  isDead: 0
+  baseHP: 100
   fieldOfView: 45
   firingDelay: 0.5
-  hp: 100
   moveSpeed: 4
   pointValue: 100
   viewDistance: 100

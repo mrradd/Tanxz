@@ -10,6 +10,7 @@ TagManager:
   - AITank
   - Powerup
   - Obstacle
+  - WayPoint
   layers:
   - Default
   - TransparentFX

@@ -37,6 +37,10 @@ public class InputController : BaseController
   **************************************************************************/
   private void Update()
     {
+    /** Prevent controls when dead. */
+    if(!tankData.isAlive)
+      return;
+    
     controls();
     }
 

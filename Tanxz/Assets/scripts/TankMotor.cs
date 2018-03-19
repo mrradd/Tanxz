@@ -53,6 +53,8 @@ public class TankMotor : MonoBehaviour
   ****************************************************************************/
   public void move(float speed)
     {
+    gameObject.SendMessage("madeNoise");
+
     /** Get the gameobject's current facing (forward) then change the direction
      *  of movement by applying speed. */
     characterController.SimpleMove(tf.forward * speed);

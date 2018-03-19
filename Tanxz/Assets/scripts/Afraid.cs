@@ -10,36 +10,6 @@ using UnityEngine;
 public class Afraid : AIPersonality
   {
   /****************************************************************************
-  * Unity Methods 
-  ****************************************************************************/
-  /**************************************************************************
-  * Awake */
-  /**
-  **************************************************************************/
-  protected override void Awake()
-    {
-    base.Awake();
-    }
-
-  /****************************************************************************
-  * Update */
-  /**
-  ****************************************************************************/
-  protected override void Start()
-    {
-    base.Start();
-    }
-
-  /****************************************************************************
-  * Update */
-  /**
-  ****************************************************************************/
-  protected override void Update()
-    {
-    base.Update();
-    }
-
-  /****************************************************************************
   * Methods 
   ****************************************************************************/
   /****************************************************************************
@@ -55,17 +25,17 @@ public class Afraid : AIPersonality
       {
       /** Move along the waypoints list. */
       case AIState.Patrol:
-          {
-          patrol();
-          break;
-          }
+        {
+        patrol();
+        break;
+        }
 
       /** Chase and attack player. */
       case AIState.Flee:
-          {
-          flee();
-          break;
-          }
+        {
+        flee();
+        break;
+        }
       }
     }
 
@@ -76,15 +46,22 @@ public class Afraid : AIPersonality
   ****************************************************************************/
   protected override void scanForTarget()
     {
-    target = aiSight.scanForType(AISight.TargetType.PlayerTank);
+    /** Search for target. */
+    if(!hasActiveTarget())
+      {
+      target = aiSight.scanForType(AISight.TargetType.PlayerTank);
 
-    if(target == null)
-      target = aiSight.scanForType(AISight.TargetType.AITank);
+      if(target == null)
+        target = aiSight.scanForType(AISight.TargetType.AITank);
+      }
 
     /** Set the AI State to Flee. */
     if(target != null)
-      {
       aiState = AIState.Flee;
-      }
+
+    /** Otherwise patrol. */
+    else
+      aiState = AIState.Patrol;
+
     }
   }
