@@ -3,78 +3,45 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /******************************************************************************
-* GameManager */
+* GridManager */
 /**
-* Singleton that manages all aspects of the Game.
+* Manages the creation of the play area.
+* 
+* 3x3 Grid structure:
+* [2,0],[2,1],[2,2]
+* [1,0],[1,1],[1,2]
+* [0,0],[0,1],[0,2]
 ******************************************************************************/
-public class GameManager : MonoBehaviour
+public class GridManager : MonoBehaviour
   {
-  /** Instance accessor. */
-  public static GameManager instance;
-
-  /** AI tanks. */
-  public List<GameObject> aiTanks = new List<GameObject>();
-
-  /** AI Spawn Point. */
-  [System.NonSerialized]
-  public List<GameObject> aiSpawnPoints = new List<GameObject>();
-
-  /** Pickups. */
-  [System.NonSerialized]
-  public List<GameObject> pickups = new List<GameObject>();
-
-  /** Player Spawn Point. */
-  [System.NonSerialized]
-  public List<GameObject> playerSpawnPoints = new List<GameObject>();
-
-  /** Players tanks. */
-  public List<GameObject> playerTanks = new List<GameObject>();
-
-  /** Waypoints. */
-  [System.NonSerialized]
-  public List<GameObject> waypoints = new List<GameObject>();
-
-  /** Map */
-  /** Chunk height. */
-  public int chunkHeight;
-
-  /** Chunk prefabs. */
-  public GameObject[] chunks;
-
   /** Chunk width. */
   public int chunkWidth;
 
-  /** Number of Chunks down. */
-  public int cols;
-
-  /** Game grid of Chunks. */
-  public Chunk[,] grid;
-
-  /** Map of the day flag. */
-  public bool mapOfTheDay;
-
-  /** Map seed. */
-  public int mapSeed;
+  /** Chunk height. */
+  public int chunkHeight;
 
   /** Number of Chunks accross. */
   public int rows;
 
+  /** Number of Chunks down. */   
+  public int cols;
+
+  /** Chunk prefabs. */           
+  public GameObject[] chunks;
+
+  /** Game grid of Chunks. */     
+  public Chunk[,] grid;
+
   /****************************************************************************
   * Unity Methods 
   ****************************************************************************/
-  /**************************************************************************
+  /****************************************************************************
   * Awake */
   /**
-  **************************************************************************/
+  ****************************************************************************/
   void Awake()
     {
-    if(instance == null)
-      instance = this;
-    else
-      {
-      Debug.LogError("There can only be one instance of GameManager.");
-      Destroy(gameObject);
-      }
+    
     }
 
   /****************************************************************************
@@ -83,14 +50,6 @@ public class GameManager : MonoBehaviour
   ****************************************************************************/
   void Start()
     {
-    if(mapOfTheDay)
-      {
-      System.DateTime d = new System.DateTime();
-      Random.seed = d.Month + d.Day + d.Year;
-      }
-    else if (mapSeed > 0)
-      Random.seed = mapSeed;  
-
     generateGrid();
     }
 
@@ -112,9 +71,9 @@ public class GameManager : MonoBehaviour
       /** For each column... */
       for(int c = 0; c < cols; c++)
         {
-        float xpos = chunkWidth * c;
-        float zpos = chunkHeight * r;
-        Vector3 pos = new Vector3(xpos, 0f, zpos);
+        float   xpos = chunkWidth  * c;
+        float   zpos = chunkHeight * r;
+        Vector3 pos  = new Vector3(xpos, 0f, zpos);
 
         /** Create chunk object at the position. */
         GameObject tempObj = Instantiate(randomChunk(), pos, Quaternion.identity) as GameObject;
@@ -154,7 +113,7 @@ public class GameManager : MonoBehaviour
           }
 
         /** Last column, drop West Wall. */
-        else if(c == cols - 1)
+        else if (c == cols - 1)
           {
           chunk.wallWest.SetActive(false);
           }
@@ -165,19 +124,6 @@ public class GameManager : MonoBehaviour
           chunk.wallEast.SetActive(false);
           chunk.wallWest.SetActive(false);
           }
-
-        /** Add the Chunk's Waypoints into the Waypoints list. */
-        for(int i = 0; i < chunk.waypoints.Length; i++)
-          waypoints.Add(chunk.waypoints[i]);
-
-        /** Add the Chunk's pickup spawns to the Pickups list. */
-        pickups.Add(chunk.pickupSpawn);
-
-        /** Add the Chunk's AI spawns to the Pickups list. */
-        pickups.Add(chunk.aiSpawn);
-
-        /** Add the Chunk's Player spawns to the Pickups list. */
-        pickups.Add(chunk.playerSpawn);
 
         /** Save the Chunk. */
         grid[r, c] = chunk;
@@ -194,4 +140,4 @@ public class GameManager : MonoBehaviour
     {
     return chunks[Random.Range(0, chunks.Length)];
     }
-  }
+  } 

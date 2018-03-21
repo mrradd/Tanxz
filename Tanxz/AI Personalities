@@ -1,0 +1,5 @@
+AI Personalities
+AI Personality: Base class that only patrols.
+Aggressive: Patrols and attacks AI and Players on sight.
+Guard: Patrols and attacks Players that are heard or Sighted. Retreats from Players if below 50% health.
+Afraid: Patrols and runs from Players when sighted.
