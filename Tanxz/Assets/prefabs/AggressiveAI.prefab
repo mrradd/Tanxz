@@ -110,7 +110,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4001768890095274
 Transform:
   m_ObjectHideFlags: 1
@@ -144,7 +144,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1838034391037426}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.8, y: 0.6, z: 9.7}
+  m_LocalPosition: {x: -5.800003, y: 1, z: 0.19999695}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4127706748721582}
@@ -538,7 +538,6 @@ MonoBehaviour:
   firingMechanism: {fileID: 114332752156624092}
   tankMotor: {fileID: 114286209409800268}
   tankData: {fileID: 114381318241359886}
-  mAvoidanceStage: 0
   aiSight: {fileID: 114609568409305584}
   aiState: 4
   avoidanceTime: 2

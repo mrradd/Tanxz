@@ -122,8 +122,23 @@ Prefab:
     m_Modifications:
     - target: {fileID: 114953203601308476, guid: 9d2d68a1ee9b78c498399af2d97cbead,
         type: 2}
-      propertyPath: chunks.Array.size
+      propertyPath: aiTanks.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114953203601308476, guid: 9d2d68a1ee9b78c498399af2d97cbead,
+        type: 2}
+      propertyPath: aiPrefabs.Array.size
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114953203601308476, guid: 9d2d68a1ee9b78c498399af2d97cbead,
+        type: 2}
+      propertyPath: playerTanks.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114953203601308476, guid: 9d2d68a1ee9b78c498399af2d97cbead,
+        type: 2}
+      propertyPath: playerPrefabs.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4554911743708514, guid: 9d2d68a1ee9b78c498399af2d97cbead, type: 2}
       propertyPath: m_LocalPosition.x
@@ -159,58 +174,74 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114953203601308476, guid: 9d2d68a1ee9b78c498399af2d97cbead,
         type: 2}
-      propertyPath: chunkWidth
-      value: 70
-      objectReference: {fileID: 0}
-    - target: {fileID: 114953203601308476, guid: 9d2d68a1ee9b78c498399af2d97cbead,
-        type: 2}
-      propertyPath: chunkHeight
-      value: 70
+      propertyPath: cols
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114953203601308476, guid: 9d2d68a1ee9b78c498399af2d97cbead,
         type: 2}
       propertyPath: rows
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114953203601308476, guid: 9d2d68a1ee9b78c498399af2d97cbead,
         type: 2}
-      propertyPath: cols
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114953203601308476, guid: 9d2d68a1ee9b78c498399af2d97cbead,
-        type: 2}
-      propertyPath: chunks.Array.data[0]
+      propertyPath: aiTanks.Array.data[0]
       value: 
-      objectReference: {fileID: 1132028429071848, guid: 0ac56d44934d2484eadb1c972b3cffa5,
+      objectReference: {fileID: 1875983709590206, guid: 64ba042dae1d449678ff17c86a5de4a5,
         type: 2}
     - target: {fileID: 114953203601308476, guid: 9d2d68a1ee9b78c498399af2d97cbead,
         type: 2}
-      propertyPath: chunks.Array.data[1]
+      propertyPath: aiTanks.Array.data[1]
       value: 
-      objectReference: {fileID: 1075865756525440, guid: f45d0cc4135eb4d8980d9227f679237a,
+      objectReference: {fileID: 1838034391037426, guid: a0e6a971f948142fd8a7182462cf0273,
         type: 2}
     - target: {fileID: 114953203601308476, guid: 9d2d68a1ee9b78c498399af2d97cbead,
         type: 2}
-      propertyPath: chunks.Array.data[2]
+      propertyPath: aiTanks.Array.data[2]
       value: 
-      objectReference: {fileID: 1284394578918316, guid: 0daec505ad5844ba6aa0f58d426bb927,
+      objectReference: {fileID: 1101908796825038, guid: bb071a25dc2dc4e1fa409bcec84b03b6,
         type: 2}
     - target: {fileID: 114953203601308476, guid: 9d2d68a1ee9b78c498399af2d97cbead,
         type: 2}
-      propertyPath: chunks.Array.data[3]
+      propertyPath: aiTanks.Array.data[3]
       value: 
-      objectReference: {fileID: 1815340689626252, guid: 290972e8ccf6f435bb630d0d356ecf95,
+      objectReference: {fileID: 1673162383766398, guid: 6f7dd5e99a2dd4c69b93dea894bcef9e,
         type: 2}
     - target: {fileID: 114953203601308476, guid: 9d2d68a1ee9b78c498399af2d97cbead,
         type: 2}
-      propertyPath: mapOfTheDay
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: playerTanks.Array.data[0]
+      value: 
+      objectReference: {fileID: 1335757497979822, guid: afb97176275bbf24ca0f4c3c93f51a2d,
+        type: 2}
     - target: {fileID: 114953203601308476, guid: 9d2d68a1ee9b78c498399af2d97cbead,
         type: 2}
-      propertyPath: mapSeed
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: aiPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 1875983709590206, guid: 64ba042dae1d449678ff17c86a5de4a5,
+        type: 2}
+    - target: {fileID: 114953203601308476, guid: 9d2d68a1ee9b78c498399af2d97cbead,
+        type: 2}
+      propertyPath: aiPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 1838034391037426, guid: a0e6a971f948142fd8a7182462cf0273,
+        type: 2}
+    - target: {fileID: 114953203601308476, guid: 9d2d68a1ee9b78c498399af2d97cbead,
+        type: 2}
+      propertyPath: aiPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 1101908796825038, guid: bb071a25dc2dc4e1fa409bcec84b03b6,
+        type: 2}
+    - target: {fileID: 114953203601308476, guid: 9d2d68a1ee9b78c498399af2d97cbead,
+        type: 2}
+      propertyPath: aiPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 1673162383766398, guid: 6f7dd5e99a2dd4c69b93dea894bcef9e,
+        type: 2}
+    - target: {fileID: 114953203601308476, guid: 9d2d68a1ee9b78c498399af2d97cbead,
+        type: 2}
+      propertyPath: playerPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 1335757497979822, guid: afb97176275bbf24ca0f4c3c93f51a2d,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9d2d68a1ee9b78c498399af2d97cbead, type: 2}
   m_IsPrefabParent: 0

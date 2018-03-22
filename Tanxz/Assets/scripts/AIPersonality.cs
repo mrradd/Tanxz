@@ -22,8 +22,7 @@ public class AIPersonality : BaseController
   * Properties
   ****************************************************************************/
   /** Current state of avoidance algorithm. */
-  //protected int mAvoidanceStage = 0;
-  public int mAvoidanceStage = 0;
+  protected int mAvoidanceStage = 0;
 
   /** Timer before avoidance ends. */
   protected float mAvoidanceTimer = 0f;
@@ -74,7 +73,7 @@ public class AIPersonality : BaseController
   public Transform target;
 
   /** List of Waypoints. */
-  public Transform[] waypoints;
+  public List<GameObject> waypoints = new List<GameObject>();
 
   /****************************************************************************
   * Unity Methods 
@@ -422,61 +421,64 @@ public class AIPersonality : BaseController
   ****************************************************************************/
   protected virtual void patrol()
     {
-    if(waypoints.Length <= 0)
+    if(waypoints.Count <= 0)
       return;
     
-    Transform currentWaypoint = waypoints[mCurrentWaypointIndex];
-
-    /** Square the difference of magnitudes, and check if it is within our
-      * threshold squared. Doing this instead of using Vector3.Distance for
-      * better peformance. */
-    float d  = Vector3.SqrMagnitude(tankMotor.tf.position - currentWaypoint.position);
-    float dt = Mathf.Pow(distanceThreshold, 2f);
-
-    /** Move forward if finisehd rotating toward the waypoint. */
-    if(tankMotor.rotateTowards(currentWaypoint.position, tankData.turnSpeed))
+    if(waypoints[mCurrentWaypointIndex] != null)
       {
-      /** Don't move if we are at the last waypoint, and we are set to Stop
-        * LooptType. */
-      if(!(mCurrentWaypointIndex >= waypoints.Length - 1 && d <= dt && loopType == LoopType.Stop))
-        tankMotor.move(tankData.moveSpeed);
-      }
+      Transform currentWaypoint = waypoints[mCurrentWaypointIndex].transform;
 
-    /** Increment index to go to next waypoint. */
-    if(d <= dt)
-      {
-      switch(loopType)
+      /** Square the difference of magnitudes, and check if it is within our
+        * threshold squared. Doing this instead of using Vector3.Distance for
+        * better peformance. */
+      float d = Vector3.SqrMagnitude(tankMotor.tf.position - currentWaypoint.position);
+      float dt = Mathf.Pow(distanceThreshold, 2f);
+
+      /** Move forward if finisehd rotating toward the waypoint. */
+      if(tankMotor.rotateTowards(currentWaypoint.position, tankData.turnSpeed))
         {
-        /** Loops through the waypoint list. */
-        case LoopType.Loop:
-          {
-          mCurrentWaypointIndex = ++mCurrentWaypointIndex >= waypoints.Length ? 0 : mCurrentWaypointIndex;
-          break;
-          }
+        /** Don't move if we are at the last waypoint, and we are set to Stop
+          * LooptType. */
+        if(!(mCurrentWaypointIndex >= waypoints.Count - 1 && d <= dt && loopType == LoopType.Stop))
+          tankMotor.move(tankData.moveSpeed);
+        }
 
-        /** Itrates forward if starting at 0, or backward when it gets to at
-          * last index. */
-        case LoopType.PingPong:
+      /** Increment index to go to next waypoint. */
+      if(d <= dt)
+        {
+        switch(loopType)
           {
-          /** Iterate forward if we are at the start of the list. */
-          if(mCurrentWaypointIndex <= 0)
-            mPatrolForward = true;
-            
-          /** Iterate backward if we are at the end of the list. */
-          else if(mCurrentWaypointIndex >= waypoints.Length - 1)
-            mPatrolForward = false;
+          /** Loops through the waypoint list. */
+          case LoopType.Loop:
+            {
+            mCurrentWaypointIndex = ++mCurrentWaypointIndex >= waypoints.Count ? 0 : mCurrentWaypointIndex;
+            break;
+            }
 
-          /** Increment/Decrement the index. */
-          mCurrentWaypointIndex += mPatrolForward ? 1 : -1;
-          break;
-          }
+          /** Itrates forward if starting at 0, or backward when it gets to at
+            * last index. */
+          case LoopType.PingPong:
+            {
+            /** Iterate forward if we are at the start of the list. */
+            if(mCurrentWaypointIndex <= 0)
+              mPatrolForward = true;
 
-        /** Stops at the last index of the waypoint list. */
-        case LoopType.Stop:
-          {
-          if(mCurrentWaypointIndex < waypoints.Length - 1)
-            mCurrentWaypointIndex++;
-          break;
+            /** Iterate backward if we are at the end of the list. */
+            else if(mCurrentWaypointIndex >= waypoints.Count - 1)
+              mPatrolForward = false;
+
+            /** Increment/Decrement the index. */
+            mCurrentWaypointIndex += mPatrolForward ? 1 : -1;
+            break;
+            }
+
+          /** Stops at the last index of the waypoint list. */
+          case LoopType.Stop:
+            {
+            if(mCurrentWaypointIndex < waypoints.Count - 1)
+              mCurrentWaypointIndex++;
+            break;
+            }
           }
         }
       }

@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
   /** AI tanks. */
   public List<GameObject> aiTanks = new List<GameObject>();
 
+  /** AI Tank Prefab list.*/
+  public List<GameObject> aiPrefabs = new List<GameObject>();
+
   /** AI Spawn Point. */
   [System.NonSerialized]
   public List<GameObject> aiSpawnPoints = new List<GameObject>();
@@ -28,6 +31,9 @@ public class GameManager : MonoBehaviour
 
   /** Players tanks. */
   public List<GameObject> playerTanks = new List<GameObject>();
+
+  /** Player prefabs. */
+  public List<GameObject> playerPrefabs = new List<GameObject>();
 
   /** Waypoints. */
   [System.NonSerialized]
@@ -57,6 +63,9 @@ public class GameManager : MonoBehaviour
 
   /** Number of Chunks accross. */
   public int rows;
+
+  /** Two player game. */
+  public bool twoPlayer;
 
   /****************************************************************************
   * Unity Methods 
@@ -91,6 +100,30 @@ public class GameManager : MonoBehaviour
       Random.seed = mapSeed;  
 
     generateGrid();
+
+    /** Spawn AI as long as we have not "used" all spawnpoints. */
+    int count = 0;
+    foreach(GameObject tank in aiPrefabs)
+      {
+      if(count >= aiSpawnPoints.Count)
+        break;
+      
+      aiTanks.Add(Instantiate(tank, aiSpawnPoints[Random.Range(0, aiSpawnPoints.Count)].transform.position, Quaternion.identity));
+
+      /** Assign waypoints. */
+      //TODO CH  FOR SOME REASON WHEN A WAYPOINT IS ADDED TO THE LIST, THE
+      //OBJECT HAS NO PROPERTIES AND DOES NOT REGISTER AS A GAMEOBJECT. 
+      //List<GameObject> wp = new List<GameObject>();
+      //foreach(GameObject w in waypoints)
+        //{
+        //tank.GetComponent<AIPersonality>().waypoints.Add(w);
+        //}
+
+      count++;
+      }
+
+    /** Instantiate the Player. */
+    playerTanks.Add(Instantiate(playerPrefabs[0], playerSpawnPoints[Random.Range(0, playerSpawnPoints.Count)].transform.position, Quaternion.identity));
     }
 
   /****************************************************************************
@@ -172,11 +205,11 @@ public class GameManager : MonoBehaviour
         /** Add the Chunk's pickup spawns to the Pickups list. */
         pickups.Add(chunk.pickupSpawn);
 
-        /** Add the Chunk's AI spawns to the Pickups list. */
-        pickups.Add(chunk.aiSpawn);
+        /** Add the Chunk's AI spawns to the AI Spawn list. */
+        aiSpawnPoints.Add(chunk.aiSpawn);
 
-        /** Add the Chunk's Player spawns to the Pickups list. */
-        pickups.Add(chunk.playerSpawn);
+        /** Add the Chunk's Player spawns to the Player Spawn list. */
+        playerSpawnPoints.Add(chunk.playerSpawn);
 
         /** Save the Chunk. */
         grid[r, c] = chunk;
