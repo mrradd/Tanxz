@@ -27,6 +27,8 @@ GameObject:
   - component: {fileID: 114021865457585732}
   - component: {fileID: 114998093927627010}
   - component: {fileID: 114391306453395592}
+  - component: {fileID: 114531991085558638}
+  - component: {fileID: 114680064144729890}
   m_Layer: 8
   m_Name: AI Tank
   m_TagString: AITank
@@ -156,7 +158,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1698640828876000}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1, z: 0.71}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0.802}
   m_LocalScale: {x: 0.22306, y: 0.17157, z: 0.6485406}
   m_Children: []
   m_Father: {fileID: 4818496442851858}
@@ -169,7 +171,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1101908796825038}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -3.57, y: 0.6, z: 27.3}
+  m_LocalPosition: {x: 13, y: 0.6, z: 1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4211834155577554}
@@ -414,6 +416,7 @@ MonoBehaviour:
   firingMechanism: {fileID: 114003964545677970}
   tankMotor: {fileID: 114438877033645046}
   tankData: {fileID: 114639508668932346}
+  mAvoidanceStage: 0
   aiSight: {fileID: 114998093927627010}
   aiState: 4
   avoidanceTime: 2
@@ -421,7 +424,6 @@ MonoBehaviour:
   distanceThreshold: 1
   fleeTime: 1
   loopType: 1
-  senseRadius: 0
   target: {fileID: 0}
   waypoints:
   - {fileID: 0}
@@ -487,6 +489,17 @@ MonoBehaviour:
   characterController: {fileID: 143472863141971060}
   tankData: {fileID: 114639508668932346}
   tf: {fileID: 4818496442851858}
+--- !u!114 &114531991085558638
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1101908796825038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a6ab802bf01147febf9e2510f385c5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114639508668932346
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -504,13 +517,28 @@ MonoBehaviour:
   baseHP: 100
   fieldOfView: 45
   firingDelay: 0.5
+  hp: 100
+  listeningRadius: 50
   moveSpeed: 4
   pointValue: 100
   viewDistance: 100
   score: 0
   shellDamage: 34
-  tankName: AI Tank
+  tankName: Pascifist Tank
   turnSpeed: 180
+--- !u!114 &114680064144729890
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1101908796825038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eef5356d15aa4dafa033c70ad7a1be8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerups: []
+  tankData: {fileID: 114639508668932346}
 --- !u!114 &114906577374109802
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -64,6 +64,8 @@ GameObject:
   - component: {fileID: 114880361821012036}
   - component: {fileID: 114066920029247162}
   - component: {fileID: 114818591762502072}
+  - component: {fileID: 114464105732435906}
+  - component: {fileID: 114892574127865392}
   m_Layer: 8
   m_Name: PlayerTank
   m_TagString: PlayerTank
@@ -129,7 +131,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1335757497979822}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 8.07, y: 0.54, z: 16.4}
+  m_LocalPosition: {x: 8.07, y: 0.54, z: 14.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4819593936819646}
@@ -159,7 +161,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1403260264549792}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1, z: 0.71}
+  m_LocalPosition: {x: 0, y: 0.108, z: 0.792}
   m_LocalScale: {x: 0.22306, y: 0.17157, z: 0.6485406}
   m_Children: []
   m_Father: {fileID: 4188282968990244}
@@ -408,6 +410,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0060dfebf92a4b5f9674185bb36846c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114464105732435906
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1335757497979822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ff2bdf11437e4f54865adcc7967690f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerupController: {fileID: 114892574127865392}
+  cheatPowerup:
+    speedModifier: 0
+    healthModifier: 0
+    fireRateModifier: 0
+    duration: 0
+    isPermanent: 0
 --- !u!114 &114621674951401370
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -422,9 +442,11 @@ MonoBehaviour:
   isAlive: 1
   makingNoise: 0
   cannonForce: 80
+  baseHP: 100
   fieldOfView: 45
   firingDelay: 0.5
   hp: 100
+  listeningRadius: 50
   moveSpeed: 4
   pointValue: 100
   viewDistance: 40
@@ -494,6 +516,19 @@ MonoBehaviour:
   characterController: {fileID: 143171121138629068}
   tankData: {fileID: 114621674951401370}
   tf: {fileID: 4188282968990244}
+--- !u!114 &114892574127865392
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1335757497979822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eef5356d15aa4dafa033c70ad7a1be8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerups: []
+  tankData: {fileID: 114621674951401370}
 --- !u!114 &114904771009128638
 MonoBehaviour:
   m_ObjectHideFlags: 1

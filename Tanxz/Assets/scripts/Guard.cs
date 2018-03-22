@@ -59,6 +59,13 @@ public class Guard : AIPersonality
         chaseAndFire();
         break;
         }
+
+      /** Chase target. */
+      case AIState.Chase:
+        {
+        chase();
+        break;
+        }
       }
     }
 

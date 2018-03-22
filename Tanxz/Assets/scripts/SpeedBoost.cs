@@ -3,34 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /******************************************************************************
-* Powerup */
+* SpeedBoost */
 /**
-* Base class for Poweups. Modifies TankData properties.
+* Boosts speed property for a limited amount of time.
 ******************************************************************************/
-[System.Serializable]
-public class Powerup
+public class SpeedBoost : Powerup
   {
-  protected float mTimeCounter;
-
   public float speedModifier;
-  public int   healthModifier;
-  public float fireRateModifier;
-
-  public float duration;
-  public bool  isPermanent;
 
   /****************************************************************************
   * onActivate */
   /**
   * Applies modifiers to the tank.
   ****************************************************************************/
-  public virtual void onActivate(TankData target)
+  public override void onActivate(TankData target)
     {
     mTimeCounter = duration;
 
     target.moveSpeed += speedModifier;
-    target.hp += healthModifier;
-    target.firingDelay -= fireRateModifier;
     }
 
   /****************************************************************************
@@ -38,21 +28,8 @@ public class Powerup
   /**
   * Reverses modifiers to tank.
   ****************************************************************************/
-  public virtual void onDeactivate(TankData target)
+  public override void onDeactivate(TankData target)
     {
     target.moveSpeed -= speedModifier;
-    target.firingDelay += fireRateModifier;
-    }
-
-  /****************************************************************************
-  * updateTimer */
-  /**
-  * Updates the timer.
-  ****************************************************************************/
-  public virtual bool updateTimer()
-    {
-    mTimeCounter -= Time.deltaTime;
-
-    return mTimeCounter <= 0f;
     }
   }

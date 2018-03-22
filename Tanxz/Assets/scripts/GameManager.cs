@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
   public List<GameObject> aiSpawnPoints = new List<GameObject>();
 
   /** Pickups. */
-  [System.NonSerialized]
   public List<GameObject> pickups = new List<GameObject>();
 
   /** Player Spawn Point. */
@@ -62,10 +61,10 @@ public class GameManager : MonoBehaviour
   /****************************************************************************
   * Unity Methods 
   ****************************************************************************/
-  /**************************************************************************
+  /****************************************************************************
   * Awake */
   /**
-  **************************************************************************/
+  ****************************************************************************/
   void Awake()
     {
     if(instance == null)

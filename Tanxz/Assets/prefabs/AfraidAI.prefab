@@ -83,6 +83,7 @@ GameObject:
   - component: {fileID: 114581162398112364}
   - component: {fileID: 114714093520841306}
   - component: {fileID: 114951434094443112}
+  - component: {fileID: 114810162947608858}
   m_Layer: 8
   m_Name: AfraidAI
   m_TagString: AITank
@@ -173,7 +174,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1607948989879590}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1, z: 0.71}
+  m_LocalPosition: {x: -0, y: 0.1, z: 0.8}
   m_LocalScale: {x: 0.22306, y: 0.17157, z: 0.6485406}
   m_Children: []
   m_Father: {fileID: 4920040445116296}
@@ -464,6 +465,8 @@ MonoBehaviour:
   baseHP: 100
   fieldOfView: 45
   firingDelay: 0.5
+  hp: 100
+  listeningRadius: 50
   moveSpeed: 4
   pointValue: 100
   viewDistance: 10
@@ -485,6 +488,7 @@ MonoBehaviour:
   firingMechanism: {fileID: 114525090747483418}
   tankMotor: {fileID: 114012684637219120}
   tankData: {fileID: 114562767475505550}
+  mAvoidanceStage: 0
   aiSight: {fileID: 114714093520841306}
   aiState: 4
   avoidanceTime: 2
@@ -492,7 +496,6 @@ MonoBehaviour:
   distanceThreshold: 1
   fleeTime: 3
   loopType: 0
-  senseRadius: 0
   target: {fileID: 0}
   waypoints:
   - {fileID: 0}
@@ -510,6 +513,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tankData: {fileID: 114562767475505550}
   tf: {fileID: 4920040445116296}
+--- !u!114 &114810162947608858
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1875983709590206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eef5356d15aa4dafa033c70ad7a1be8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerups: []
+  tankData: {fileID: 114562767475505550}
 --- !u!114 &114951434094443112
 MonoBehaviour:
   m_ObjectHideFlags: 1
