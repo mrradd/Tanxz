@@ -9,8 +9,6 @@ using UnityEngine;
 ******************************************************************************/
 public class SpeedBoost : Powerup
   {
-  public float speedModifier;
-
   /****************************************************************************
   * onActivate */
   /**

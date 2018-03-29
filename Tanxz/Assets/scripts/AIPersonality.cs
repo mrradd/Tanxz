@@ -104,6 +104,8 @@ public class AIPersonality : BaseController
 
     /** Add itself to the list of AI tanks. */
     GameManager.instance.aiTanks.Add(gameObject);
+
+    initWaypoints();
 	  }
 	
   /**************************************************************************
@@ -113,7 +115,7 @@ public class AIPersonality : BaseController
   protected virtual void Update()
     {
     /** If dead, do nothing. */
-    if(!tankData.isAlive)
+    if(!tankData.isAlive || GameManager.instance.isPaused)
       return;
     
     scanForTarget();
@@ -150,7 +152,6 @@ public class AIPersonality : BaseController
     /** Rotate the tank, and advance avoidance stage. */
     if(mAvoidanceStage == 1)
       {
-      //TODO CH  TURN UNTIL PERPENDICULAR TO OBJECT
       /** Turn left. */
       tankMotor.rotate(-1 * tankData.turnSpeed);
 
@@ -213,16 +214,6 @@ public class AIPersonality : BaseController
     /** Check if something is in front of the tank. */
     if(Physics.Raycast(tankMotor.tf.position, tankMotor.tf.forward, out hit, tankData.moveSpeed, mLayerMask))
       {
-      bool p = hit.collider.gameObject.tag != "PlayerTank";
-      bool w = hit.collider.gameObject.tag != "WayPoint";
-
-      /** Avoid everything but the player and WayPoints. */
-      if(p && w)
-        {
-        Debug.Log(hit.collider.gameObject.tag);
-        return false;
-        }
-
       return false;
       }
 
@@ -378,7 +369,29 @@ public class AIPersonality : BaseController
     {
     //target  = tf;
     //aiState = AIState.Chase;
-    Debug.Log("Heard target.");
+    Debug.Log("Heard " + tf.gameObject.name);
+    }
+
+  /****************************************************************************
+  * initWaypoints */
+  /**
+  * Initializes the waypoint list.
+  ****************************************************************************/
+  protected virtual void initWaypoints()
+    {
+    /** Global waypoint list. */       List<GameObject> wp    = GameManager.instance.waypoints;
+    /** List of assigned waypoints. */ List<int>        iList = new List<int>();
+
+    /** Iterate over the global waypoint list and randomly add a waypoint to the list. */
+    for(int i = 0; i < wp.Count; i++)
+      {
+      int j = Random.Range(0, wp.Count);
+      if(!iList.Contains(j))
+        {
+        iList.Add(j);
+        waypoints.Add(wp[j]);
+        }
+      }
     }
 
   ///****************************************************************************

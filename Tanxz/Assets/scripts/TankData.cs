@@ -21,6 +21,9 @@ public class TankData : BaseData
   /** Delay between shots in seconds. */
   public float firingDelay = .5f;
 
+  /** God Mode. */
+  public bool godMode = false;
+
   /** Hit points. */
   public int hp = 100;
 
@@ -33,8 +36,8 @@ public class TankData : BaseData
   /** Point value for destroying tank. */
   public int pointValue = 100;
 
-  /** Range can see. */
-  public float viewDistance = 100f;
+  /** Remaining lives. */
+  public int remainingLives = 3;
 
   /** Tank's score. */
   public int score = 0;
@@ -48,10 +51,20 @@ public class TankData : BaseData
   /** Degrees/second. */
   public float turnSpeed = 180f;
 
+  /** Range can see. */
+  public float viewDistance = 100f;
+
+  /****************************************************************************
+  * Sounds
+  ****************************************************************************/
+  public AudioSource audioSource;
+  public AudioClip   soundFiring;
+  public AudioClip   soundTankHit;
+  public AudioClip   soundTankDestroyed;
+
   /****************************************************************************
   * Unity Methods 
   ****************************************************************************/
-
   /****************************************************************************
   * Awake */
   /**
@@ -59,6 +72,10 @@ public class TankData : BaseData
   private void Awake()
     {
     hp = baseHP;
+
+    /** Get the audio source. */
+    if(audioSource == null)
+      audioSource = gameObject.GetComponent<AudioSource>();
     }
 
   /****************************************************************************
@@ -67,22 +84,6 @@ public class TankData : BaseData
   ****************************************************************************/
   private void Update()
     {
-    /** If the health drops below 0, set as dead and change color. */
-    if(hp <= 0 && isAlive)
-      {
-      isAlive = false;
 
-      /** Get materials for all child components so we can change their color. */
-      Renderer[] arr = gameObject.GetComponentsInChildren<Renderer>();
-
-      /** Change all the components color. */
-      for(int i = 0; i < arr.Length; i++)
-        {
-        if(arr[i] == null)
-          continue;
-
-        arr[i].material.color = Color.white;
-        }
-      }
     }
   }

@@ -130,6 +130,5 @@ public class Guard : AIPersonality
     /** Return to Patrol. */
     else
       aiState = AIState.Patrol;
-      
     }
   }

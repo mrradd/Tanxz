@@ -27,7 +27,7 @@ public class InputController : BaseController
     {
     base.Start();
 
-    /** Add itself to the list of AI tanks. */
+    /** Add itself to the list of Player tanks. */
     GameManager.instance.playerTanks.Add(gameObject);
     }
 
@@ -37,16 +37,38 @@ public class InputController : BaseController
   **************************************************************************/
   private void Update()
     {
+    checkSpecialCommands();
+
     /** Prevent controls when dead. */
-    if(!tankData.isAlive)
+    if(!tankData.isAlive || GameManager.instance.isPaused)
       return;
-    
+
     controls();
     }
 
   /****************************************************************************
   * Methods 
   ****************************************************************************/
+  /****************************************************************************
+  * checkSpecialCommands */
+  /**
+  * Checks special commands entered.
+  ****************************************************************************/
+  public void checkSpecialCommands()
+    {
+    /** Toggle Paused. */
+    if(Input.GetKeyDown(KeyCode.Alpha9))
+      GameManager.instance.isPaused = !GameManager.instance.isPaused;
+    
+    /** Go back to Main Menu Scene. */
+    if(Input.GetKeyDown(KeyCode.Alpha0))
+      GameManager.instance.loadMainMenuScene();
+
+    /** Toggle God Mode. */
+    if(Input.GetKeyDown(KeyCode.G))
+      tankData.godMode = !tankData.godMode;
+    }
+
   /****************************************************************************
   * controls */ 
   /**

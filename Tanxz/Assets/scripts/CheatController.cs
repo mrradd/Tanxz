@@ -25,6 +25,7 @@ public class CheatController : MonoBehaviour
     if(Input.GetKeyDown(KeyCode.P))
       {
       powerupController.addPowerup(cheatPowerup);
+
       }
 	  }
   }

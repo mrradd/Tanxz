@@ -40,19 +40,28 @@ public class DamageManager : MonoBehaviour
   ****************************************************************************/
   public void applyDamage(ApplyDamagePayload adp)
     {
-    tankData.hp -= adp.damage;
+    if(!tankData.godMode)
+      tankData.hp -= adp.damage;
 
     Debug.Log(tankData.hp + " " + adp.damage + " " + adp.source);
 
     /** Check if tank is dead. */
     if(tankData.hp <= 0)
       {
-      Debug.Log(tankData.name + " dead.");
+      Debug.Log(tankData.name + " died.");
 
-      /** Increase the score of the object that hit this tank. */
+      /** Increase the score of the opposing that hit this tank. */
       GameObject.Find(adp.source).GetComponent<TankData>().score += tankData.pointValue;
 
-      //Destroy(gameObject);
+      //tankData.audioSource.PlayOneShot(tankData.soundTankDestroyed);
+      AudioSource.PlayClipAtPoint(tankData.soundTankDestroyed, gameObject.transform.position, tankData.audioSource.volume);
+      }
+
+    /** Play tank hit sound. */
+    else
+      {
+      //tankData.audioSource.PlayOneShot(tankData.soundTankHit);
+      AudioSource.PlayClipAtPoint(tankData.soundTankHit, gameObject.transform.position, tankData.audioSource.volume);
       }
     }
   }

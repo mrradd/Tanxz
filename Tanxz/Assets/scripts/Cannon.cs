@@ -8,7 +8,8 @@ using UnityEngine;
 * Controls firing shells.
 ******************************************************************************/
 public class Cannon : MonoBehaviour
-  {  
+  {
+
   /** Shell to launch. */
   public GameObject shell;
 

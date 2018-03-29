@@ -64,6 +64,11 @@ public class FiringMechanism : MonoBehaviour
     /** Fire a shell */
     if(mShotTimer >= tankData.firingDelay)
       {
+      /** Play feedback audio. */
+      //AudioSource.PlayClipAtPoint(fireSound, gameObject.transform.position);
+
+      AudioSource.PlayClipAtPoint(tankData.soundFiring, gameObject.transform.position, tankData.audioSource.volume);
+
       mShotTimer = 0f;
       cannon.fire(force, gameObject.name);
       }

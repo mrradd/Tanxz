@@ -13,6 +13,9 @@ public class Shell : MonoBehaviour
   [System.NonSerialized]
   public int damage = 0;
 
+  /** Sound played when it hits non-tank. */
+  public AudioClip soundImpact;
+
   /** Source from which the shell was fired Should be set when fired. */
   [System.NonSerialized]
   public string source = "";
@@ -26,13 +29,15 @@ public class Shell : MonoBehaviour
     Debug.Log(damage + " " + source);
     }
 
+  /**************************************************************************
+  * OnCollisionEnter */
+  /**
+  **************************************************************************/
   void OnCollisionEnter(Collision collision)
     {
-    //TankCollisionSection cs = collision.gameObject.GetComponent<TankCollisionSection>();
-
-    ///** Destroy the Shell if it hit another tank. */
-    //if(cs != null)
-      //Destroy(gameObject);
+    /** Play sound if it didn't hit a tank. */
+    if(collision.gameObject.tag != "AITank" && collision.gameObject.tag != "PlayerTank")
+      AudioSource.PlayClipAtPoint(soundImpact, gameObject.transform.position);
 
     /** Destroy on impact. */
     Destroy(gameObject);

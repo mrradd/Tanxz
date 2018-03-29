@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 /******************************************************************************
@@ -21,6 +23,10 @@ public class GameManager : MonoBehaviour
   /** AI Spawn Point. */
   [System.NonSerialized]
   public List<GameObject> aiSpawnPoints = new List<GameObject>();
+
+  /** Game paused flag. */
+  [System.NonSerialized]
+  public bool isPaused = false;
 
   /** Pickups. */
   public List<GameObject> pickups = new List<GameObject>();
@@ -64,8 +70,14 @@ public class GameManager : MonoBehaviour
   /** Number of Chunks accross. */
   public int rows;
 
-  /** Two player game. */
-  public bool twoPlayer;
+  /** Multiplayer game. */
+  public bool multiPlayer;
+
+  /** SFX audio mixer. */
+  public AudioMixer sfxAudioMixer;
+
+  /** SFX audio mixer. */
+  public AudioMixer musicAudioMixer;
 
   /****************************************************************************
   * Unity Methods 
@@ -91,39 +103,7 @@ public class GameManager : MonoBehaviour
   ****************************************************************************/
   void Start()
     {
-    if(mapOfTheDay)
-      {
-      System.DateTime d = new System.DateTime();
-      Random.seed = d.Month + d.Day + d.Year;
-      }
-    else if (mapSeed > 0)
-      Random.seed = mapSeed;  
-
-    generateGrid();
-
-    /** Spawn AI as long as we have not "used" all spawnpoints. */
-    int count = 0;
-    foreach(GameObject tank in aiPrefabs)
-      {
-      if(count >= aiSpawnPoints.Count)
-        break;
-      
-      aiTanks.Add(Instantiate(tank, aiSpawnPoints[Random.Range(0, aiSpawnPoints.Count)].transform.position, Quaternion.identity));
-
-      /** Assign waypoints. */
-      //TODO CH  FOR SOME REASON WHEN A WAYPOINT IS ADDED TO THE LIST, THE
-      //OBJECT HAS NO PROPERTIES AND DOES NOT REGISTER AS A GAMEOBJECT. 
-      //List<GameObject> wp = new List<GameObject>();
-      //foreach(GameObject w in waypoints)
-        //{
-        //tank.GetComponent<AIPersonality>().waypoints.Add(w);
-        //}
-
-      count++;
-      }
-
-    /** Instantiate the Player. */
-    playerTanks.Add(Instantiate(playerPrefabs[0], playerSpawnPoints[Random.Range(0, playerSpawnPoints.Count)].transform.position, Quaternion.identity));
+    //loadLevel();
     }
 
   /****************************************************************************
@@ -144,9 +124,10 @@ public class GameManager : MonoBehaviour
       /** For each column... */
       for(int c = 0; c < cols; c++)
         {
-        float xpos = chunkWidth * c;
-        float zpos = chunkHeight * r;
-        Vector3 pos = new Vector3(xpos, 0f, zpos);
+        string  cName = "Chunk-(" + r + "," + c + ")";
+        float   xpos  = chunkWidth * c;
+        float   zpos  = chunkHeight * r;
+        Vector3 pos   = new Vector3(xpos, 0f, zpos);
 
         /** Create chunk object at the position. */
         GameObject tempObj = Instantiate(randomChunk(), pos, Quaternion.identity) as GameObject;
@@ -155,7 +136,7 @@ public class GameManager : MonoBehaviour
         tempObj.transform.parent = this.transform;
 
         /** Give object a name. */
-        tempObj.name = "Chunk-(" + r + "," + c + ")";
+        tempObj.name = cName;
 
         /** Create temporary chunk object to manage and store. */
         Chunk chunk = tempObj.GetComponent<Chunk>();
@@ -200,21 +181,101 @@ public class GameManager : MonoBehaviour
 
         /** Add the Chunk's Waypoints into the Waypoints list. */
         for(int i = 0; i < chunk.waypoints.Length; i++)
-          waypoints.Add(chunk.waypoints[i]);
+          {
+          chunk.waypoints[i].name = cName + " WP-" + i;
+          instance.waypoints.Add(chunk.waypoints[i]);
+          }
+          
+        /** Name chunk spawns. */
+        chunk.pickupSpawn.name = cName + " PuS";
+        chunk.aiSpawn.name     = cName + " AS";
+        chunk.playerSpawn.name = cName + " PS";
 
         /** Add the Chunk's pickup spawns to the Pickups list. */
-        pickups.Add(chunk.pickupSpawn);
+        instance.pickups.Add(chunk.pickupSpawn);
 
         /** Add the Chunk's AI spawns to the AI Spawn list. */
-        aiSpawnPoints.Add(chunk.aiSpawn);
+        instance.aiSpawnPoints.Add(chunk.aiSpawn);
 
         /** Add the Chunk's Player spawns to the Player Spawn list. */
-        playerSpawnPoints.Add(chunk.playerSpawn);
+        instance.playerSpawnPoints.Add(chunk.playerSpawn);
 
         /** Save the Chunk. */
-        grid[r, c] = chunk;
+        instance.grid[r, c] = chunk;
         }
       }
+    }
+
+  /****************************************************************************
+  * loadGameOverScene */
+  /**
+  * Loads the Game Over Scene.
+  ****************************************************************************/
+  public void loadGameOverScene()
+    {
+    SceneManager.LoadScene("GameOverScene");
+    }
+
+  /****************************************************************************
+  * loadLevel */
+  /**
+  * Loads a game level.
+  ****************************************************************************/
+  public void loadLevel()
+    {
+    /** Load map of the day. */
+    if(instance.mapOfTheDay)
+      {
+      System.DateTime d = new System.DateTime();
+      Random.seed = d.Month + d.Day + d.Year;
+      }
+
+    /** Seed the random generator. */
+    else if(instance.mapSeed > 0)
+      Random.seed = instance.mapSeed;
+
+    generateGrid();
+
+    /** Spawn AI as long as we have not "used" all spawnpoints. */
+    int count = 0;
+    foreach(GameObject tank in instance.aiPrefabs)
+      {
+      if(count >= instance.aiSpawnPoints.Count)
+        break;
+
+      instance.aiTanks.Add(Instantiate(tank, instance.aiSpawnPoints[Random.Range(0, instance.aiSpawnPoints.Count)].transform.position, Quaternion.identity));
+
+      count++;
+      }
+
+    /** Instantiate the Player(s). */
+    if(!instance.multiPlayer)
+      instance.playerTanks.Add(Instantiate(instance.playerPrefabs[0], instance.playerSpawnPoints[Random.Range(0, instance.playerSpawnPoints.Count)].transform.position, Quaternion.identity));
+    else
+      for(int i = 0; i < instance.playerPrefabs.Count; i++)
+        {
+        instance.playerTanks.Add(Instantiate(instance.playerPrefabs[i], instance.playerSpawnPoints[Random.Range(0, instance.playerSpawnPoints.Count)].transform.position, Quaternion.identity));
+        }
+    }
+
+  /****************************************************************************
+  * loadMainMenuScene */
+  /**
+  * Loads the Main Menu Scene.
+  ****************************************************************************/
+  public void loadMainMenuScene()
+    {
+    SceneManager.LoadScene("MainMenuScene");
+    }
+
+  /****************************************************************************
+  * loadMainGameScene */
+  /**
+  * Loads the Maine Game Scene.
+  ****************************************************************************/
+  public void loadMainGameScene()
+    {
+    SceneManager.LoadScene("MainGameScene");
     }
 
   /****************************************************************************
@@ -224,6 +285,28 @@ public class GameManager : MonoBehaviour
   ****************************************************************************/
   public GameObject randomChunk()
     {
-    return chunks[Random.Range(0, chunks.Length)];
+    return instance.chunks[Random.Range(0, instance.chunks.Length)];
+    }
+
+  /****************************************************************************
+  * setMusicVolume */
+  /**
+  * Sets the music volume.
+  * @param  volume  Value to set volume to.
+  ****************************************************************************/
+  public void setMusicVolume(float volume)
+    {
+    instance.sfxAudioMixer.SetFloat("musicVolume", volume);
+    }
+
+  /****************************************************************************
+  * setSFXVolume */
+  /**
+  * Sets the sound effects volume.
+  * @param  volume  Value to set volume to.
+  ****************************************************************************/
+  public  void setSFXVolume(float volume)
+    {
+    instance.sfxAudioMixer.SetFloat("sfxVolume", volume);
     }
   }

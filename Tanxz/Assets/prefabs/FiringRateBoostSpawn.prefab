@@ -109,7 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAlive: 1
   makingNoise: 0
-  feedback: {fileID: 0}
+  feedback: {fileID: 8300000, guid: dc631383b6b5f40afa4bfef675a00d6b, type: 3}
   powerup:
     speedModifier: 0
     healthModifier: 0

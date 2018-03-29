@@ -48,7 +48,6 @@ public class NoiseManager : MonoBehaviour
   ****************************************************************************/
   public void madeNoise()
     {
-    Debug.Log(gameObject.name + " made Noise");
     mNoiseTimeCounter    = mNoiseTimer;
     tankData.makingNoise = true;
     }
