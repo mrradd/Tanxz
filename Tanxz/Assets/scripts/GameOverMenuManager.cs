@@ -1,39 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.UI;
 
 /******************************************************************************
-* MainMenuManager */
+* GameOverMenuManager */
 /**
-* Handles Main Menu operations.
+* Manages the Game Over Menu.
 ******************************************************************************/
-public class MainMenuManager : MonoBehaviour
+public class GameOverMenuManager : MonoBehaviour
   {
-  public GameObject optionsMenu;
+  public Text highScoreText;
 
   /****************************************************************************
-  * Methods 
+  * Unity Methods 
   ****************************************************************************/
   /****************************************************************************
-  * options */
+  * Start */
   /**
-  * Switches to Options screen.
   ****************************************************************************/
-  public void showOptions()
+	void Start ()
     {
-    gameObject.SetActive(false);
-    optionsMenu.gameObject.SetActive(true);
-    optionsMenu.GetComponent<OptionsMenuManager>().loadSettings();
-    }
+	  }
 
   /****************************************************************************
-  * startGame */
+  * Update */
   /**
-  * Starts game.
   ****************************************************************************/
-  public void startGame()
+  void Update()
     {
-    GameManager.instance.loadMainGameScene();
+    /** Change the high score text. */
+    highScoreText.text = "High Score: " + GameManager.instance.highScore;
     }
   }

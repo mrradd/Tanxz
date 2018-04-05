@@ -9,24 +9,35 @@ using UnityEngine;
 /**
 * Singleton that manages all aspects of the Game.
 ******************************************************************************/
-public class GameManager : MonoBehaviour
-  {
+public class GameManager : MonoBehaviour {
   /** Instance accessor. */
   public static GameManager instance;
 
   /** AI tanks. */
   public List<GameObject> aiTanks = new List<GameObject>();
 
-  /** AI Tank Prefab list.*/
-  public List<GameObject> aiPrefabs = new List<GameObject>();
-
   /** AI Spawn Point. */
   [System.NonSerialized]
   public List<GameObject> aiSpawnPoints = new List<GameObject>();
 
+  /** Game Over flag. */
+  public bool gameOver = false;
+
+  /** High score. */
+  public int highScore = 0;
+
   /** Game paused flag. */
   [System.NonSerialized]
   public bool isPaused = false;
+
+  /** Map of the day flag. */
+  public bool mapOfTheDay = false;
+
+  /** Map seed. */
+  public int mapSeed;
+
+  /** Multiplayer game. */
+  public bool multiPlayer = false;
 
   /** Pickups. */
   public List<GameObject> pickups = new List<GameObject>();
@@ -38,46 +49,13 @@ public class GameManager : MonoBehaviour
   /** Players tanks. */
   public List<GameObject> playerTanks = new List<GameObject>();
 
-  /** Player prefabs. */
-  public List<GameObject> playerPrefabs = new List<GameObject>();
-
   /** Waypoints. */
   [System.NonSerialized]
   public List<GameObject> waypoints = new List<GameObject>();
 
-  /** Map */
-  /** Chunk height. */
-  public int chunkHeight;
-
-  /** Chunk prefabs. */
-  public GameObject[] chunks;
-
-  /** Chunk width. */
-  public int chunkWidth;
-
-  /** Number of Chunks down. */
-  public int cols;
-
-  /** Game grid of Chunks. */
-  public Chunk[,] grid;
-
-  /** Map of the day flag. */
-  public bool mapOfTheDay;
-
-  /** Map seed. */
-  public int mapSeed;
-
-  /** Number of Chunks accross. */
-  public int rows;
-
-  /** Multiplayer game. */
-  public bool multiPlayer;
-
-  /** SFX audio mixer. */
-  public AudioMixer sfxAudioMixer;
-
-  /** SFX audio mixer. */
-  public AudioMixer musicAudioMixer;
+  /** Sound */
+  /** Master Audio mixer. */
+  public AudioMixer masterAudioMixer;
 
   /****************************************************************************
   * Unity Methods 
@@ -89,7 +67,10 @@ public class GameManager : MonoBehaviour
   void Awake()
     {
     if(instance == null)
+      {
       instance = this;
+      loadSettings();
+      }
     else
       {
       Debug.LogError("There can only be one instance of GameManager.");
@@ -103,159 +84,81 @@ public class GameManager : MonoBehaviour
   ****************************************************************************/
   void Start()
     {
-    //loadLevel();
     }
 
   /****************************************************************************
   * Methods 
   ****************************************************************************/
   /****************************************************************************
-  * generateGrid */
+  * calculateHighScore */
   /**
-  * Generates the grid.
+  * Compares current highscore and Player scores to determine the highest.
   ****************************************************************************/
-  protected void generateGrid()
+  public void calculateHighScore()
     {
-    grid = new Chunk[rows, cols];
+    loadHighScore();
 
-    /** For each row... */
-    for(int r = 0; r < rows; r++)
+    foreach(GameObject tank in instance.playerTanks)
       {
-      /** For each column... */
-      for(int c = 0; c < cols; c++)
-        {
-        string  cName = "Chunk-(" + r + "," + c + ")";
-        float   xpos  = chunkWidth * c;
-        float   zpos  = chunkHeight * r;
-        Vector3 pos   = new Vector3(xpos, 0f, zpos);
+      int s = tank.GetComponent<TankData>().score;
+      instance.highScore = s > instance.highScore ? s : instance.highScore;
+      }
 
-        /** Create chunk object at the position. */
-        GameObject tempObj = Instantiate(randomChunk(), pos, Quaternion.identity) as GameObject;
+    saveHighScore();
+    }
 
-        /** Set the object's parent. */
-        tempObj.transform.parent = this.transform;
+  /****************************************************************************
+  * checkGameOver */
+  /**
+  * Checks for game over state and shows Game Over Scene.
+  ****************************************************************************/
+  public void checkGameOver()
+    {
+    
+    bool enemiesDefeated = false;
+    bool playersDefeated = false;
 
-        /** Give object a name. */
-        tempObj.name = cName;
+    /** Check AI tanks destroyed. */
+    int aicount = 0;
+    foreach(GameObject aiTank in instance.aiTanks)
+      {
+      if(!aiTank.GetComponent<TankData>().isAlive)
+        aicount++;
 
-        /** Create temporary chunk object to manage and store. */
-        Chunk chunk = tempObj.GetComponent<Chunk>();
+      if(aicount >= instance.aiTanks.Count)
+        enemiesDefeated = true;
+      }
 
-        /** First row, drop the North Wall. */
-        if(r == 0)
-          {
-          chunk.wallNorth.SetActive(false);
-          }
+    /** Check Players defeated. */
+    int playercount = 0;
+    foreach(GameObject player in instance.playerTanks)
+      {
+      if(!player.GetComponent<TankData>().isAlive)
+        playercount++;
 
-        /** Last row, drop the South Wall. */
-        else if(r == rows - 1)
-          {
-          chunk.wallSouth.SetActive(false);
-          }
+      if(!multiPlayer && playercount >= 1)
+        playersDefeated = true;
+      else if(multiPlayer && playercount >= 2)
+        playersDefeated = true;
+      }
 
-        /** In the middle, drop North and South Wall. */
-        else
-          {
-          chunk.wallNorth.SetActive(false);
-          chunk.wallSouth.SetActive(false);
-          }
+    gameOver = enemiesDefeated || playersDefeated;
 
-        /** In the first column, drop East Wall. */
-        if(c == 0)
-          {
-          chunk.wallEast.SetActive(false);
-          }
-
-        /** Last column, drop West Wall. */
-        else if(c == cols - 1)
-          {
-          chunk.wallWest.SetActive(false);
-          }
-
-        /** In the middle, drop East and West walls. */
-        else
-          {
-          chunk.wallEast.SetActive(false);
-          chunk.wallWest.SetActive(false);
-          }
-
-        /** Add the Chunk's Waypoints into the Waypoints list. */
-        for(int i = 0; i < chunk.waypoints.Length; i++)
-          {
-          chunk.waypoints[i].name = cName + " WP-" + i;
-          instance.waypoints.Add(chunk.waypoints[i]);
-          }
-          
-        /** Name chunk spawns. */
-        chunk.pickupSpawn.name = cName + " PuS";
-        chunk.aiSpawn.name     = cName + " AS";
-        chunk.playerSpawn.name = cName + " PS";
-
-        /** Add the Chunk's pickup spawns to the Pickups list. */
-        instance.pickups.Add(chunk.pickupSpawn);
-
-        /** Add the Chunk's AI spawns to the AI Spawn list. */
-        instance.aiSpawnPoints.Add(chunk.aiSpawn);
-
-        /** Add the Chunk's Player spawns to the Player Spawn list. */
-        instance.playerSpawnPoints.Add(chunk.playerSpawn);
-
-        /** Save the Chunk. */
-        instance.grid[r, c] = chunk;
-        }
+    /** Game Over. */
+    if(gameOver)
+      {
+      showGameOverMenu();
       }
     }
 
   /****************************************************************************
-  * loadGameOverScene */
+  * loadHighScore */
   /**
-  * Loads the Game Over Scene.
+  * Load high score.
   ****************************************************************************/
-  public void loadGameOverScene()
+  public void loadHighScore()
     {
-    SceneManager.LoadScene("GameOverScene");
-    }
-
-  /****************************************************************************
-  * loadLevel */
-  /**
-  * Loads a game level.
-  ****************************************************************************/
-  public void loadLevel()
-    {
-    /** Load map of the day. */
-    if(instance.mapOfTheDay)
-      {
-      System.DateTime d = new System.DateTime();
-      Random.seed = d.Month + d.Day + d.Year;
-      }
-
-    /** Seed the random generator. */
-    else if(instance.mapSeed > 0)
-      Random.seed = instance.mapSeed;
-
-    generateGrid();
-
-    /** Spawn AI as long as we have not "used" all spawnpoints. */
-    int count = 0;
-    foreach(GameObject tank in instance.aiPrefabs)
-      {
-      if(count >= instance.aiSpawnPoints.Count)
-        break;
-
-      instance.aiTanks.Add(Instantiate(tank, instance.aiSpawnPoints[Random.Range(0, instance.aiSpawnPoints.Count)].transform.position, Quaternion.identity));
-
-      count++;
-      }
-
-    /** Instantiate the Player(s). */
-    if(!instance.multiPlayer)
-      instance.playerTanks.Add(Instantiate(instance.playerPrefabs[0], instance.playerSpawnPoints[Random.Range(0, instance.playerSpawnPoints.Count)].transform.position, Quaternion.identity));
-    else
-      for(int i = 0; i < instance.playerPrefabs.Count; i++)
-        {
-        instance.playerTanks.Add(Instantiate(instance.playerPrefabs[i], instance.playerSpawnPoints[Random.Range(0, instance.playerSpawnPoints.Count)].transform.position, Quaternion.identity));
-        }
+    instance.highScore = PlayerPrefs.GetInt("HighScore");
     }
 
   /****************************************************************************
@@ -279,13 +182,48 @@ public class GameManager : MonoBehaviour
     }
 
   /****************************************************************************
-  * randomChunk */
+  * loadSettings */
   /**
-  * Chooses a random chunk from the list.
+  * Load options settings.
   ****************************************************************************/
-  public GameObject randomChunk()
+  public void loadSettings()
     {
-    return instance.chunks[Random.Range(0, instance.chunks.Length)];
+    instance.mapSeed = PlayerPrefs.GetInt("MapSeed");
+    setSFXVolume(PlayerPrefs.GetFloat("SFXVolume"));
+    setMusicVolume(PlayerPrefs.GetFloat("MusicVolume"));
+    instance.mapOfTheDay = PlayerPrefs.GetInt("MapOfTheDay") == 1;
+    instance.multiPlayer = PlayerPrefs.GetInt("Multiplayer") == 1;
+    }
+
+  /****************************************************************************
+  * saveHighScore */
+  /**
+  * Saves the high score.
+  ****************************************************************************/
+  public void saveHighScore()
+    {
+    PlayerPrefs.SetInt("HighScore", instance.highScore);
+    PlayerPrefs.Save();
+    }
+
+  /****************************************************************************
+  * saveSettings */
+  /**
+  * Saves the settings from the options menu.
+  ****************************************************************************/
+  public void saveSettings()
+    {
+    float sfxVolume;
+    float musicVolume;
+    instance.masterAudioMixer.GetFloat("sfxVolume", out sfxVolume);
+    instance.masterAudioMixer.GetFloat("musicVolume", out musicVolume);
+
+    PlayerPrefs.SetInt("MapSeed", instance.mapSeed);
+    PlayerPrefs.SetFloat("SFXVolume", sfxVolume);
+    PlayerPrefs.SetFloat("MusicVolume", musicVolume);
+    PlayerPrefs.SetInt("MapOfTheDay", instance.mapOfTheDay ? 1 : 0);
+    PlayerPrefs.SetInt("Multiplayer", instance.multiPlayer ? 1 : 0);
+    PlayerPrefs.Save();
     }
 
   /****************************************************************************
@@ -296,7 +234,7 @@ public class GameManager : MonoBehaviour
   ****************************************************************************/
   public void setMusicVolume(float volume)
     {
-    instance.sfxAudioMixer.SetFloat("musicVolume", volume);
+    instance.masterAudioMixer.SetFloat("musicVolume", volume);
     }
 
   /****************************************************************************
@@ -305,8 +243,20 @@ public class GameManager : MonoBehaviour
   * Sets the sound effects volume.
   * @param  volume  Value to set volume to.
   ****************************************************************************/
-  public  void setSFXVolume(float volume)
+  public void setSFXVolume(float volume)
     {
-    instance.sfxAudioMixer.SetFloat("sfxVolume", volume);
+    instance.masterAudioMixer.SetFloat("sfxVolume", volume);
+    }
+
+  /****************************************************************************
+  * loadGameOverScene */
+  /**
+  * Loads the Game Over Scene.
+  ****************************************************************************/
+  public void showGameOverMenu()
+    {
+    GameManager.instance.calculateHighScore();
+    GameObject g = GameObject.Find("GameSceneManager");
+    g.GetComponent<GameSceneManager>().gameOverMenu.SetActive(true);
     }
   }

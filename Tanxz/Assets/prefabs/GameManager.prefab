@@ -52,27 +52,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aiTanks: []
-  aiPrefabs:
-  - {fileID: 1875983709590206, guid: 64ba042dae1d449678ff17c86a5de4a5, type: 2}
-  - {fileID: 1838034391037426, guid: a0e6a971f948142fd8a7182462cf0273, type: 2}
-  - {fileID: 1101908796825038, guid: bb071a25dc2dc4e1fa409bcec84b03b6, type: 2}
-  - {fileID: 1673162383766398, guid: 6f7dd5e99a2dd4c69b93dea894bcef9e, type: 2}
-  pickups: []
-  playerTanks: []
-  playerPrefabs:
-  - {fileID: 1308774859094648, guid: ba1248d8ea4ed4862b803d3dc292b3b0, type: 2}
-  - {fileID: 1265512033778674, guid: 134aea1a243a54485a29def5cd1462c3, type: 2}
-  chunkHeight: 70
-  chunks:
-  - {fileID: 1132028429071848, guid: 0ac56d44934d2484eadb1c972b3cffa5, type: 2}
-  - {fileID: 1075865756525440, guid: f45d0cc4135eb4d8980d9227f679237a, type: 2}
-  - {fileID: 1284394578918316, guid: 0daec505ad5844ba6aa0f58d426bb927, type: 2}
-  - {fileID: 1815340689626252, guid: 290972e8ccf6f435bb630d0d356ecf95, type: 2}
-  chunkWidth: 70
-  cols: 2
+  gameOver: 0
+  highScore: 0
   mapOfTheDay: 0
   mapSeed: 0
-  rows: 2
   multiPlayer: 0
-  sfxAudioMixer: {fileID: 24100000, guid: 42f7a52df86004ad5a6834c40e393c04, type: 2}
-  musicAudioMixer: {fileID: 24100000, guid: 959a48fd4869c4d0192009e1a0df71e6, type: 2}
+  pickups: []
+  playerTanks: []
+  masterAudioMixer: {fileID: 24100000, guid: d1e5db8b0fd7c44fdbd5ea05219a907a, type: 2}

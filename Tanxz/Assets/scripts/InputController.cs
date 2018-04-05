@@ -26,9 +26,6 @@ public class InputController : BaseController
   protected override void Start()
     {
     base.Start();
-
-    /** Add itself to the list of Player tanks. */
-    GameManager.instance.playerTanks.Add(gameObject);
     }
 
   /**************************************************************************
@@ -40,7 +37,7 @@ public class InputController : BaseController
     checkSpecialCommands();
 
     /** Prevent controls when dead. */
-    if(!tankData.isAlive || GameManager.instance.isPaused)
+    if(!tankData.isAlive || GameManager.instance.isPaused || GameManager.instance.gameOver)
       return;
 
     controls();
@@ -63,6 +60,17 @@ public class InputController : BaseController
     /** Go back to Main Menu Scene. */
     if(Input.GetKeyDown(KeyCode.Alpha0))
       GameManager.instance.loadMainMenuScene();
+
+    /** Game over. */
+    if(Input.GetKeyDown(KeyCode.Alpha8))
+      {
+      GameManager.instance.gameOver = true;
+      GameManager.instance.showGameOverMenu();
+      }
+
+    /** Increase player 1 score. */
+    if(Input.GetKeyDown(KeyCode.Alpha7))
+      GameManager.instance.playerTanks[0].GetComponent<TankData>().score += 10;
 
     /** Toggle God Mode. */
     if(Input.GetKeyDown(KeyCode.G))
@@ -124,7 +132,7 @@ public class InputController : BaseController
           tankMotor.rotate(-tankData.turnSpeed);
 
         /** Fire. */
-        if(Input.GetKey(KeyCode.RightControl))
+        if(Input.GetKey(KeyCode.Period))
           firingMechanism.fire(tankData.cannonForce);
 
         break;

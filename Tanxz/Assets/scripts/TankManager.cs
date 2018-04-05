@@ -9,8 +9,10 @@ using UnityEngine;
 ******************************************************************************/
 public class TankManager : MonoBehaviour
   {
-  protected bool isPlayer;
+  /** Is a player flag. */
+  protected bool mIsPlayer;
 
+  /** Tank Data. */
   public TankData tankData;
 
   /****************************************************************************
@@ -22,7 +24,9 @@ public class TankManager : MonoBehaviour
   ****************************************************************************/
   void Start()
     {
-    isPlayer = gameObject.tag == "PlayerTank";
+    mIsPlayer = gameObject.tag == "PlayerTank";
+
+    spawn();
     }
 
   /****************************************************************************
@@ -36,19 +40,7 @@ public class TankManager : MonoBehaviour
       {
       if(tankData.remainingLives > 0)
         {
-        ///** Spawn Player. */
-        //if(isPlayer)
-        //  {
-        //  gameObject.transform.position = GameManager.instance.playerSpawnPoints
-        //    [Random.Range(0, GameManager.instance.playerSpawnPoints.Count)].transform.position;
-        //  }
-
-        ///** Spawn AI. */
-        //else
-          //{
-          //gameObject.transform.position = GameManager.instance.aiSpawnPoints
-          //  [Random.Range(0, GameManager.instance.aiSpawnPoints.Count)].transform.position;          
-          //}
+        spawn();
 
         tankData.hp = tankData.baseHP;
         tankData.remainingLives--;
@@ -58,6 +50,8 @@ public class TankManager : MonoBehaviour
       /** Tank is officially dead. */
       else
         {
+        GameManager.instance.checkGameOver();
+
         /** Get materials for all child components so we can change their color. */
         Renderer[] arr = gameObject.GetComponentsInChildren<Renderer>();
 
@@ -75,4 +69,17 @@ public class TankManager : MonoBehaviour
       }
 	  }
 
+  /****************************************************************************
+  * Methods 
+  ****************************************************************************/
+  /****************************************************************************
+  * spawn */
+  /**
+  * Spawns the tank at one of the positions in the spawn point list.
+  ****************************************************************************/
+  protected void spawn()
+    {
+    List<GameObject> spawnList = mIsPlayer ? GameManager.instance.playerSpawnPoints : GameManager.instance.aiSpawnPoints;
+    gameObject.transform.position = spawnList[Random.Range(0, spawnList.Count)].transform.position;
+    }
   }

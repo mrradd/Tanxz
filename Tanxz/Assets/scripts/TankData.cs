@@ -12,6 +12,9 @@ public class TankData : BaseData
   /** Cannon launch force. */
   public float cannonForce = 5000f;
 
+  /** Camera. */
+  public Camera tankCam;
+
   /** Lowest amount of starting health. */
   public int baseHP = 100;
 
@@ -26,6 +29,9 @@ public class TankData : BaseData
 
   /** Hit points. */
   public int hp = 100;
+
+  /** Player number. -1 Denotes NPC. */
+  public int playerNumber = -1;
 
   /** Listening radius. */
   public float listeningRadius = 50f;
@@ -69,21 +75,58 @@ public class TankData : BaseData
   * Awake */
   /**
   ****************************************************************************/
-  private void Awake()
+  void Awake()
     {
     hp = baseHP;
 
     /** Get the audio source. */
     if(audioSource == null)
       audioSource = gameObject.GetComponent<AudioSource>();
+
+    /** Adjust Camera if multiplayer. AI should not have cameras. */
+    if(GameManager.instance.multiPlayer && tankCam != null)
+      {
+      /** Adjust the camera to make split screen. */
+      if(playerNumber == 1)
+        tankCam.rect = new Rect(0f, .5f, 1f, .5f);
+      if(playerNumber == 2)
+        tankCam.rect = new Rect(0f, 0f, 1f, .5f);
+
+
+      /** Adjust the UI so it is viewable by the player. */
+      PlayerUIManager p = gameObject.GetComponent<PlayerUIManager>();
+
+      RectTransform hpRT    = p.txtHP.gameObject.GetComponent<RectTransform>();
+      RectTransform scoreRT = p.txtScore.gameObject.GetComponent<RectTransform>();
+      RectTransform livesRT = p.txtLives.gameObject.GetComponent<RectTransform>();
+
+      float newHPY    = hpRT.localPosition.y * .3f;
+      float newScoreY = scoreRT.localPosition.y * .45f;
+      float newLivesY = livesRT.localPosition.y * .5f;
+
+      hpRT.localPosition    = new Vector2(hpRT.localPosition.x,    newHPY);
+      scoreRT.localPosition = new Vector2(scoreRT.localPosition.x, newScoreY);
+      livesRT.localPosition = new Vector2(livesRT.localPosition.x, newLivesY);
+      }
+    }
+  /****************************************************************************
+  * Update */
+  /**
+  ****************************************************************************/
+  void Start()
+    {
+    if(GameManager.instance.multiPlayer)
+      {
+
+      }
     }
 
   /****************************************************************************
   * Update */
   /**
   ****************************************************************************/
-  private void Update()
+  void Update()
     {
-
+    
     }
   }

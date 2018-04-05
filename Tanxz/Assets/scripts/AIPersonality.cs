@@ -102,20 +102,16 @@ public class AIPersonality : BaseController
 
     changeColor(personalityColor);
 
-    /** Add itself to the list of AI tanks. */
-    GameManager.instance.aiTanks.Add(gameObject);
-
     initWaypoints();
 	  }
-	
+
   /**************************************************************************
   * Update */
   /**
   **************************************************************************/
-  protected virtual void Update()
-    {
+  protected virtual void Update() {
     /** If dead, do nothing. */
-    if(!tankData.isAlive || GameManager.instance.isPaused)
+    if(!tankData.isAlive || GameManager.instance.isPaused || GameManager.instance.gameOver) 
       return;
     
     scanForTarget();
