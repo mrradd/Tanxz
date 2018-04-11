@@ -9,11 +9,14 @@ using UnityEngine;
 ******************************************************************************/
 public class TankManager : MonoBehaviour
   {
+  protected DoomHeadAnimManager mDHAM;
+
   /** Is a player flag. */
   protected bool mIsPlayer;
 
   /** Tank Data. */
   public TankData tankData;
+
 
   /****************************************************************************
   * Unity Methods 
@@ -26,6 +29,12 @@ public class TankManager : MonoBehaviour
     {
     mIsPlayer = gameObject.tag == "PlayerTank";
 
+
+    if(mDHAM == null && mIsPlayer)
+      {
+      mDHAM = GetComponentInChildren<DoomHeadAnimManager>();
+      }
+      
     spawn();
     }
 
@@ -79,6 +88,9 @@ public class TankManager : MonoBehaviour
   ****************************************************************************/
   protected void spawn()
     {
+    if(mDHAM != null)
+      mDHAM.changeToIdleState();
+    
     List<GameObject> spawnList = mIsPlayer ? GameManager.instance.playerSpawnPoints : GameManager.instance.aiSpawnPoints;
     gameObject.transform.position = spawnList[Random.Range(0, spawnList.Count)].transform.position;
     }

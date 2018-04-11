@@ -1,0 +1,747 @@
+fileFormatVersion: 2
+guid: 50cab08a7e815474dbd9493e6aa80006
+timeCreated: 1523155520
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: doomguyHeadSpriteMap_0
+    21300002: doomguyHeadSpriteMap_1
+    21300004: doomguyHeadSpriteMap_2
+    21300006: doomguyHeadSpriteMap_3
+    21300008: doomguyHeadSpriteMap_4
+    21300010: doomguyHeadSpriteMap_5
+    21300012: doomguyHeadSpriteMap_6
+    21300014: doomguyHeadSpriteMap_7
+    21300016: doomguyHeadSpriteMap_8
+    21300018: doomguyHeadSpriteMap_9
+    21300020: doomguyHeadSpriteMap_10
+    21300022: doomguyHeadSpriteMap_11
+    21300024: doomguyHeadSpriteMap_12
+    21300026: doomguyHeadSpriteMap_13
+    21300028: doomguyHeadSpriteMap_14
+    21300030: doomguyHeadSpriteMap_15
+    21300032: doomguyHeadSpriteMap_16
+    21300034: doomguyHeadSpriteMap_17
+    21300036: doomguyHeadSpriteMap_18
+    21300038: doomguyHeadSpriteMap_19
+    21300040: doomguyHeadSpriteMap_20
+    21300042: doomguyHeadSpriteMap_21
+    21300044: doomguyHeadSpriteMap_22
+    21300046: doomguyHeadSpriteMap_23
+    21300048: doomguyHeadSpriteMap_24
+    21300050: doomguyHeadSpriteMap_25
+    21300052: doomguyHeadSpriteMap_26
+    21300054: doomguyHeadSpriteMap_27
+    21300056: doomguyHeadSpriteMap_28
+    21300058: doomguyHeadSpriteMap_29
+    21300060: doomguyHeadSpriteMap_30
+    21300062: doomguyHeadSpriteMap_31
+    21300064: doomguyHeadSpriteMap_32
+    21300066: doomguyHeadSpriteMap_33
+    21300068: doomguyHeadSpriteMap_34
+    21300070: doomguyHeadSpriteMap_35
+    21300072: doomguyHeadSpriteMap_36
+    21300074: doomguyHeadSpriteMap_37
+    21300076: doomguyHeadSpriteMap_38
+    21300078: doomguyHeadSpriteMap_39
+    21300080: doomguyHeadSpriteMap_40
+    21300082: doomguyHeadSpriteMap_41
+  externalObjects: {}
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapU: 1
+    wrapV: 1
+    wrapW: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_0
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 816
+        width: 148
+        height: 178
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_1
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 816
+        width: 148
+        height: 178
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_2
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 816
+        width: 147
+        height: 178
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_3
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 816
+        width: 161
+        height: 184
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_4
+      rect:
+        serializedVersion: 2
+        x: 661
+        y: 816
+        width: 160
+        height: 184
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_5
+      rect:
+        serializedVersion: 2
+        x: 835
+        y: 816
+        width: 148
+        height: 190
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_6
+      rect:
+        serializedVersion: 2
+        x: 996
+        y: 816
+        width: 147
+        height: 184
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_7
+      rect:
+        serializedVersion: 2
+        x: 1158
+        y: 816
+        width: 147
+        height: 184
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_8
+      rect:
+        serializedVersion: 2
+        x: 1318
+        y: 822
+        width: 148
+        height: 178
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_9
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 615
+        width: 148
+        height: 176
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_10
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 615
+        width: 148
+        height: 176
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_11
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 615
+        width: 147
+        height: 176
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_12
+      rect:
+        serializedVersion: 2
+        x: 493
+        y: 615
+        width: 160
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_13
+      rect:
+        serializedVersion: 2
+        x: 667
+        y: 615
+        width: 160
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_14
+      rect:
+        serializedVersion: 2
+        x: 841
+        y: 615
+        width: 148
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_15
+      rect:
+        serializedVersion: 2
+        x: 1002
+        y: 615
+        width: 147
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_16
+      rect:
+        serializedVersion: 2
+        x: 1164
+        y: 615
+        width: 147
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_17
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 410
+        width: 148
+        height: 184
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_18
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 410
+        width: 148
+        height: 184
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_19
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 410
+        width: 147
+        height: 184
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_20
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 410
+        width: 167
+        height: 184
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_21
+      rect:
+        serializedVersion: 2
+        x: 667
+        y: 410
+        width: 166
+        height: 184
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_22
+      rect:
+        serializedVersion: 2
+        x: 841
+        y: 410
+        width: 148
+        height: 190
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_23
+      rect:
+        serializedVersion: 2
+        x: 1002
+        y: 410
+        width: 147
+        height: 184
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_24
+      rect:
+        serializedVersion: 2
+        x: 1164
+        y: 410
+        width: 147
+        height: 184
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_25
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 207
+        width: 148
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_26
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 207
+        width: 148
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_27
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 207
+        width: 147
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_28
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 208
+        width: 178
+        height: 187
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_29
+      rect:
+        serializedVersion: 2
+        x: 679
+        y: 207
+        width: 172
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_30
+      rect:
+        serializedVersion: 2
+        x: 865
+        y: 207
+        width: 147
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_31
+      rect:
+        serializedVersion: 2
+        x: 1026
+        y: 207
+        width: 147
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_32
+      rect:
+        serializedVersion: 2
+        x: 1188
+        y: 207
+        width: 147
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_33
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 4
+        width: 148
+        height: 190
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_34
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 4
+        width: 149
+        height: 190
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_35
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 4
+        width: 147
+        height: 190
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_36
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 4
+        width: 184
+        height: 190
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_37
+      rect:
+        serializedVersion: 2
+        x: 685
+        y: 4
+        width: 172
+        height: 184
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_38
+      rect:
+        serializedVersion: 2
+        x: 865
+        y: 4
+        width: 148
+        height: 190
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_39
+      rect:
+        serializedVersion: 2
+        x: 1026
+        y: 4
+        width: 147
+        height: 184
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_40
+      rect:
+        serializedVersion: 2
+        x: 1188
+        y: 4
+        width: 147
+        height: 184
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: doomguyHeadSpriteMap_41
+      rect:
+        serializedVersion: 2
+        x: 1348
+        y: 4
+        width: 148
+        height: 190
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    outline: []
+    physicsShape: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

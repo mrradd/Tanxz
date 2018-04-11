@@ -91,19 +91,22 @@ public class TankData : BaseData
         tankCam.rect = new Rect(0f, .5f, 1f, .5f);
       if(playerNumber == 2)
         tankCam.rect = new Rect(0f, 0f, 1f, .5f);
-
-
+      
       /** Adjust the UI so it is viewable by the player. */
       PlayerUIManager p = gameObject.GetComponent<PlayerUIManager>();
 
+      Transform     dhT     = p.doomHead.transform;
       RectTransform hpRT    = p.txtHP.gameObject.GetComponent<RectTransform>();
       RectTransform scoreRT = p.txtScore.gameObject.GetComponent<RectTransform>();
       RectTransform livesRT = p.txtLives.gameObject.GetComponent<RectTransform>();
 
+      float newDHY    = dhT.localPosition.y * .4f;
+      float newDHX    = dhT.localPosition.x - 875f;
       float newHPY    = hpRT.localPosition.y * .3f;
       float newScoreY = scoreRT.localPosition.y * .45f;
       float newLivesY = livesRT.localPosition.y * .5f;
 
+      dhT.localPosition     = new Vector3(newDHX, newDHY, dhT.position.z);
       hpRT.localPosition    = new Vector2(hpRT.localPosition.x,    newHPY);
       scoreRT.localPosition = new Vector2(scoreRT.localPosition.x, newScoreY);
       livesRT.localPosition = new Vector2(livesRT.localPosition.x, newLivesY);

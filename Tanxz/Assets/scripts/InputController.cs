@@ -10,6 +10,8 @@ using UnityEngine;
 ******************************************************************************/
 public class InputController : BaseController
   {
+  protected DoomHeadAnimManager mDHAM;
+
   /** Controller input types. */
   public enum InputScheme {WASD, arrowKeys};
 
@@ -26,6 +28,9 @@ public class InputController : BaseController
   protected override void Start()
     {
     base.Start();
+
+    if(mDHAM == null)
+      mDHAM = GetComponentInChildren<DoomHeadAnimManager>();
     }
 
   /**************************************************************************
@@ -38,8 +43,11 @@ public class InputController : BaseController
 
     /** Prevent controls when dead. */
     if(!tankData.isAlive || GameManager.instance.isPaused || GameManager.instance.gameOver)
+      {
+      stopTankMovingSound();
       return;
-
+      }
+      
     controls();
     }
 
@@ -72,9 +80,17 @@ public class InputController : BaseController
     if(Input.GetKeyDown(KeyCode.Alpha7))
       GameManager.instance.playerTanks[0].GetComponent<TankData>().score += 10;
 
+    /** Apply damage. */
+    if(Input.GetKeyDown(KeyCode.Alpha6))
+      SendMessage("applyDamage", new ApplyDamagePayload(34, "Test"));
+
     /** Toggle God Mode. */
     if(Input.GetKeyDown(KeyCode.G))
       tankData.godMode = !tankData.godMode;
+
+    /** Exit game. */
+    if(Input.GetKeyDown(KeyCode.Escape))
+      Application.Quit();
     }
 
   /****************************************************************************
@@ -89,52 +105,84 @@ public class InputController : BaseController
       /** WASD input. */
       case InputScheme.WASD:
         {
+        bool w = Input.GetKey(KeyCode.W);
+        bool s = Input.GetKey(KeyCode.S);
+        bool d = Input.GetKey(KeyCode.D);
+        bool a = Input.GetKey(KeyCode.A);
+
         /** Forward. */
-        if(Input.GetKey(KeyCode.W))
+        if(w)
           tankMotor.move(tankData.moveSpeed);
         
         /** Reverse. */
-        else if(Input.GetKey(KeyCode.S))
+        else if(s)
           tankMotor.move(-tankData.moveSpeed);
 
         /** Right. */
-        if(Input.GetKey(KeyCode.D))
+        if(d)
           tankMotor.rotate(tankData.turnSpeed);
         
         /** Left. */
-        else if(Input.GetKey(KeyCode.A))
+        else if(a)
           tankMotor.rotate(-tankData.turnSpeed);
 
         /** Fire. */
         if(Input.GetKey(KeyCode.Space))
+          {
           firingMechanism.fire(tankData.cannonForce);
+          mDHAM.changeToShootingState();
+          }
 
+        /** Play tank moving soud. */
+        if(w || s || a || d)
+          playTankMovingSound();
+          
+        /** Stop tank moving sound. */
+        else
+          stopTankMovingSound();
+            
         break;
         }
 
       /** Arrowkey input. */
       case InputScheme.arrowKeys:
         {
+        bool u = Input.GetKey(KeyCode.UpArrow);
+        bool d = Input.GetKey(KeyCode.DownArrow);
+        bool r = Input.GetKey(KeyCode.RightArrow);
+        bool l = Input.GetKey(KeyCode.LeftArrow);
+
         /** Forward. */
-        if(Input.GetKey(KeyCode.UpArrow))
+        if(u)
           tankMotor.move(tankData.moveSpeed);
         
         /** Reverse. */
-        else if(Input.GetKey(KeyCode.DownArrow))
+        else if(d)
           tankMotor.move(-tankData.moveSpeed);
 
         /** Right. */
-        if(Input.GetKey(KeyCode.RightArrow))
+        if(r)
           tankMotor.rotate(tankData.turnSpeed);
         
         /** Left. */
-        else if(Input.GetKey(KeyCode.LeftArrow))
+        else if(l)
           tankMotor.rotate(-tankData.turnSpeed);
 
         /** Fire. */
         if(Input.GetKey(KeyCode.Period))
+          {
           firingMechanism.fire(tankData.cannonForce);
+          mDHAM.changeToShootingState();
+          }
 
+        /** Play tank moving soud. */
+        if(u || d || r || l)
+          playTankMovingSound();
+          
+        /** Stop tank moving sound. */
+        else
+          stopTankMovingSound();
+          
         break;
         }
       }

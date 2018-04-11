@@ -71,6 +71,7 @@ GameObject:
   - component: {fileID: 82386035911073868}
   - component: {fileID: 114017236825186242}
   - component: {fileID: 114124852420246428}
+  - component: {fileID: 82812081793722950}
   m_Layer: 8
   m_Name: Player2Tank
   m_TagString: PlayerTank
@@ -143,6 +144,23 @@ GameObject:
   - component: {fileID: 114540335865953932}
   m_Layer: 5
   m_Name: TextLives
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1807143822772882
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4761864859170400}
+  - component: {fileID: 212607191728474674}
+  - component: {fileID: 114597574598727562}
+  m_Layer: 5
+  m_Name: DoomHead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -239,6 +257,19 @@ Transform:
   - {fileID: 224526707600990414}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4761864859170400
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1807143822772882}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 433, z: 0}
+  m_LocalScale: {x: 100, y: 100, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224526707600990414}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4765431768901586
 Transform:
@@ -529,7 +560,88 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+--- !u!82 &82812081793722950
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1265512033778674}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 243137737612414004, guid: d1e5db8b0fd7c44fdbd5ea05219a907a,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: 77a5b48ae13f741e38601e773a669872, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
     m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -616,6 +728,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6779d5cb8e6b44c9b31736be8d2175a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doomHead: {fileID: 1807143822772882}
   tankData: {fileID: 114878920346119568}
   txtHP: {fileID: 114392672799969820}
   txtScore: {fileID: 114509573580351076}
@@ -820,10 +933,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09ea24a3bb9bd30408ea05ae12275285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tankMovingSound: {fileID: 82812081793722950}
   firingMechanism: {fileID: 114321719996099768}
   tankMotor: {fileID: 114349407910095630}
   tankData: {fileID: 114878920346119568}
   input: 1
+--- !u!114 &114597574598727562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1807143822772882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a7ea93544d044750a6ae453f284e499, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tankData: {fileID: 0}
+  animationTimer: 0
+  state: 0
+  spriteRenderer: {fileID: 212607191728474674}
+  dead: {fileID: 21300082, guid: 50cab08a7e815474dbd9493e6aa80006, type: 3}
+  hit1: {fileID: 21300014, guid: 50cab08a7e815474dbd9493e6aa80006, type: 3}
+  hit2: {fileID: 21300048, guid: 50cab08a7e815474dbd9493e6aa80006, type: 3}
+  hit3: {fileID: 21300080, guid: 50cab08a7e815474dbd9493e6aa80006, type: 3}
+  shooting1: {fileID: 21300012, guid: 50cab08a7e815474dbd9493e6aa80006, type: 3}
+  shooting2: {fileID: 21300062, guid: 50cab08a7e815474dbd9493e6aa80006, type: 3}
+  shooting3: {fileID: 21300078, guid: 50cab08a7e815474dbd9493e6aa80006, type: 3}
+  idle1:
+  - {fileID: 21300000, guid: 50cab08a7e815474dbd9493e6aa80006, type: 3}
+  - {fileID: 21300002, guid: 50cab08a7e815474dbd9493e6aa80006, type: 3}
+  - {fileID: 21300004, guid: 50cab08a7e815474dbd9493e6aa80006, type: 3}
+  idle2:
+  - {fileID: 21300036, guid: 50cab08a7e815474dbd9493e6aa80006, type: 3}
+  - {fileID: 21300034, guid: 50cab08a7e815474dbd9493e6aa80006, type: 3}
+  - {fileID: 21300038, guid: 50cab08a7e815474dbd9493e6aa80006, type: 3}
+  idle3:
+  - {fileID: 21300070, guid: 50cab08a7e815474dbd9493e6aa80006, type: 3}
+  - {fileID: 21300066, guid: 50cab08a7e815474dbd9493e6aa80006, type: 3}
+  - {fileID: 21300068, guid: 50cab08a7e815474dbd9493e6aa80006, type: 3}
+  idleIndex: 1
 --- !u!114 &114826746725294444
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -858,11 +1007,11 @@ MonoBehaviour:
   playerNumber: 2
   listeningRadius: 50
   moveSpeed: 4
-  pointValue: 100
+  pointValue: 200
   remainingLives: 3
   score: 0
   shellDamage: 100
-  tankName: Player Tank
+  tankName: Player 2 Tank
   turnSpeed: 180
   viewDistance: 40
   audioSource: {fileID: 82386035911073868}
@@ -906,6 +1055,50 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!212 &212607191728474674
+SpriteRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1807143822772882}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300002, guid: 50cab08a7e815474dbd9493e6aa80006, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1.48, y: 1.78}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!222 &222809259437602012
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -975,6 +1168,7 @@ RectTransform:
   - {fileID: 224276115516204014}
   - {fileID: 224748660911543490}
   - {fileID: 224938412408967460}
+  - {fileID: 4761864859170400}
   m_Father: {fileID: 4628153602332198}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

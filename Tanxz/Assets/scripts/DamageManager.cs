@@ -10,6 +10,8 @@ using UnityEngine;
 [RequireComponent(typeof(TankData))]
 public class DamageManager : MonoBehaviour
   {
+  protected DoomHeadAnimManager mDHAM;
+
   /** Owning Tank's Data. */
   [System.NonSerialized]
   public TankData tankData;
@@ -26,6 +28,9 @@ public class DamageManager : MonoBehaviour
     /** Instantiate TankData. */
     if(tankData == null)
       tankData = gameObject.GetComponent<TankData>();
+
+    if(mDHAM == null)
+      mDHAM = GetComponentInChildren<DoomHeadAnimManager>();
     }
 
   /****************************************************************************
@@ -60,6 +65,10 @@ public class DamageManager : MonoBehaviour
     /** Play tank hit sound. */
     else
       {
+      /** Change Doom Head animation to Hit. */
+      if(mDHAM != null)
+        mDHAM.changeToHitState();
+
       //tankData.audioSource.PlayOneShot(tankData.soundTankHit);
       AudioSource.PlayClipAtPoint(tankData.soundTankHit, gameObject.transform.position, tankData.audioSource.volume);
       }

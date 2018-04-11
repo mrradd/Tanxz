@@ -10,6 +10,7 @@ using UnityEngine.UI;
 ******************************************************************************/
 public class PlayerUIManager : MonoBehaviour
   {
+  public GameObject doomHead;
   public TankData tankData;
   public Text txtHP;
   public Text txtScore;

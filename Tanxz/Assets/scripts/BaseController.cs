@@ -10,6 +10,9 @@ using UnityEngine;
 [RequireComponent(typeof(TankData), typeof(TankMotor), typeof(FiringMechanism))]
 public abstract class BaseController : MonoBehaviour
   {
+  /** Tank moving Audio Source. */
+  public AudioSource tankMovingSound;
+
   /** Firing Mechanism. */
   public FiringMechanism firingMechanism;
 
@@ -22,10 +25,10 @@ public abstract class BaseController : MonoBehaviour
   /****************************************************************************
   * Unity Methods 
   ****************************************************************************/
-  /**************************************************************************
+  /****************************************************************************
   * Start */
   /**
-  **************************************************************************/
+  ****************************************************************************/
   protected virtual void Start()
     {
     /** Instantiate TankData. */
@@ -39,5 +42,30 @@ public abstract class BaseController : MonoBehaviour
     /** Instantiate FiringMechanism. */
     if(firingMechanism == null)
       firingMechanism = gameObject.GetComponent<FiringMechanism>();
+    }
+
+  /****************************************************************************
+  * Methods 
+  ****************************************************************************/
+  /****************************************************************************
+  * playTankMovingSound */
+  /**
+  * Plays the tank moving sound if it is not playing.
+  ****************************************************************************/
+  public virtual void playTankMovingSound()
+    {
+    if(!tankMovingSound.isPlaying)
+      tankMovingSound.Play();
+    }
+
+  /****************************************************************************
+  * stopTankMovingSound */
+  /**
+  * Stops the tank moving sound if it is not playing.
+  ****************************************************************************/
+  public virtual void stopTankMovingSound()
+    {
+    if(tankMovingSound.isPlaying)
+      tankMovingSound.Stop();
     }
   }
