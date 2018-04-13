@@ -69,7 +69,7 @@ public class DoomHeadAnimManager : MonoBehaviour
   * Update */
   /**
   ****************************************************************************/
-	void Update ()
+  void Update ()
     {
     float threshold1 = 0.75f;
     float threshold2 = 0.5f;
@@ -126,7 +126,7 @@ public class DoomHeadAnimManager : MonoBehaviour
       spriteRenderer.sprite = dead;
       animationTimer = mTransitionTime;
       }
-	  }
+    }
 
   /****************************************************************************
   * Methods 
