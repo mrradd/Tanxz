@@ -103,13 +103,14 @@ public class AIPersonality : BaseController
     changeColor(personalityColor);
 
     initWaypoints();
-	  }
+    }
 
   /**************************************************************************
   * Update */
   /**
   **************************************************************************/
-  protected virtual void Update() {
+  protected virtual void Update()
+    {
     /** If dead, do nothing. */
     if(!tankData.isAlive || GameManager.instance.isPaused || GameManager.instance.gameOver) 
       return;
@@ -133,7 +134,7 @@ public class AIPersonality : BaseController
         mAvoidanceStage = 1;
         }
       }
-	  }
+    }
 
   /****************************************************************************
   * Methods 
@@ -202,9 +203,6 @@ public class AIPersonality : BaseController
   ****************************************************************************/
   protected bool canMove()
     {
-    //TODO CH  FOR SOME REASON TRIES TO AVOID THE FIRST WAYPOINT A COUPLE TIMES,
-    //BUT THEN DOES NOT TRY TO AVOID WAYPOINTS.
-
     RaycastHit hit;
 
     /** Check if something is in front of the tank. */
@@ -363,8 +361,6 @@ public class AIPersonality : BaseController
   ****************************************************************************/
   public virtual void heardTarget(Transform tf)
     {
-    //target  = tf;
-    //aiState = AIState.Chase;
     Debug.Log("Heard " + tf.gameObject.name);
     }
 
