@@ -35,12 +35,12 @@ public class OptionsMenuManager : MonoBehaviour
   * Update */
   /**
   ****************************************************************************/
-	void Update ()
+  void Update ()
     {
     System.Int32.TryParse(mapSeedInput.text, out GameManager.instance.mapSeed);
     GameManager.instance.multiPlayer = multiplayerToggle.isOn;
     GameManager.instance.mapOfTheDay = mapOfTheDayToggle.isOn;
-	  }
+    }
 
   /****************************************************************************
   * Methods 
