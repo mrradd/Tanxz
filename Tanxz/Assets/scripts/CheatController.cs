@@ -20,12 +20,12 @@ public class CheatController : MonoBehaviour
       }
     }
 
-	void Update ()
+  void Update ()
     {
     if(Input.GetKeyDown(KeyCode.P))
       {
       powerupController.addPowerup(cheatPowerup);
 
       }
-	  }
+    }
   }
