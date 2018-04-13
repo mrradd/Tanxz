@@ -29,7 +29,6 @@ public class TankManager : MonoBehaviour
     {
     mIsPlayer = gameObject.tag == "PlayerTank";
 
-
     if(mDHAM == null && mIsPlayer)
       {
       mDHAM = GetComponentInChildren<DoomHeadAnimManager>();
@@ -76,7 +75,7 @@ public class TankManager : MonoBehaviour
         tankData.isAlive = false;
         }
       }
-	  }
+    }
 
   /****************************************************************************
   * Methods 
