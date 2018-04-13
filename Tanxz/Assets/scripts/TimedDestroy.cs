@@ -15,8 +15,8 @@ public class TimedDestroy : MonoBehaviour
   * Start */
   /**
   **************************************************************************/
-	void Start ()
+  void Start ()
     {
-		Destroy(gameObject, delay);
-	  }
+    Destroy(gameObject, delay);
+    }
   }
