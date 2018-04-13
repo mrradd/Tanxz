@@ -26,7 +26,7 @@ public class TankMotor : MonoBehaviour
   * Start */
   /**
   **************************************************************************/
-	void Start ()
+  void Start ()
     {
     /** Instantiate CharacterController. */
     if(characterController == null)
@@ -39,7 +39,7 @@ public class TankMotor : MonoBehaviour
     /** Instantiate Transform. */
     if(tf == null)
       tf = gameObject.GetComponent<Transform>();
-	  }
+    }
 
   /****************************************************************************
   * Methods 
