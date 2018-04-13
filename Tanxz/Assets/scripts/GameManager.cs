@@ -9,7 +9,8 @@ using UnityEngine;
 /**
 * Singleton that manages all aspects of the Game.
 ******************************************************************************/
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+  {
   /** Instance accessor. */
   public static GameManager instance;
 
@@ -79,14 +80,6 @@ public class GameManager : MonoBehaviour {
     }
 
   /****************************************************************************
-  * Start */
-  /**
-  ****************************************************************************/
-  void Start()
-    {
-    }
-
-  /****************************************************************************
   * Methods 
   ****************************************************************************/
   /****************************************************************************
@@ -114,7 +107,6 @@ public class GameManager : MonoBehaviour {
   ****************************************************************************/
   public void checkGameOver()
     {
-    
     bool enemiesDefeated = false;
     bool playersDefeated = false;
 
