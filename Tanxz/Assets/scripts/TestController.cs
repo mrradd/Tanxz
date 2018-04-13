@@ -13,14 +13,9 @@ public class TestController : MonoBehaviour
   public TankMotor motor;
   public TankData  tankData;
 
-	void Start ()
+  void Update ()
     {
-		
-	  }
-	
-	void Update ()
-    {
-		motor.move(tankData.moveSpeed);
+    motor.move(tankData.moveSpeed);
     motor.rotate(tankData.turnSpeed);
-	  }
+    }
   }
